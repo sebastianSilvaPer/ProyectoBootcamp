@@ -1,0 +1,39 @@
+
+version: '3.8'
+services:
+    postgres:
+      image: postgres
+      container_name: postgresDB
+      restart: always
+      environment:
+        # - DATABASE_HOST=127.0.0.1
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=1234
+      ports:
+        - '9090:5432'
+      volumes:
+        - ./postgres-data:/var/lib/postgresql/data
+        # copy the sql script to create tables
+        - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+        - ./sql/data.sql:/docker-entrypoint-initdb.d/data.sql
+      healthcheck:
+        test: pg_isready -U postgres
+
+    app:
+      image: 'cursos:latest'
+      build:
+        context: .
+      container_name: app
+      restart: on-failure
+      depends_on:
+        postgres:
+          condition: service_healthy
+      environment:
+        - spring.datasource.url=jdbc:postgresql://postgres:5432/postgres?currentSchema=materias_db
+        - spring.datasource.username=postgres
+        - spring.datasource.password=1234
+        - spring.jpa.properties.hibernate.default_schema=materias_db
+      ports:
+        - 8080:8080
+
+
