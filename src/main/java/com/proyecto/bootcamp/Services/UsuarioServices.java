@@ -37,9 +37,9 @@ public class UsuarioServices implements UserDetailsService{
         return mapper.usuarioToDTO(usuarioEntity);
     }
 
-    public Usuario getUsuarioByCorreo(String correo) {
+    public UsuarioDTO getUsuarioByCorreo(String correo) {
         Optional<Usuario> usuario = repository.findByCorreo(correo);
-        return usuario.get();
+        return mapper.usuarioToDTO(usuario.get());
     }
 
     public List<UsuarioDTO> getUsuariosPaginated(int page, int size){
@@ -51,7 +51,7 @@ public class UsuarioServices implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario = getUsuarioByCorreo(username);
+        UsuarioDTO usuario = getUsuarioByCorreo(username);
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(usuario.getRol()));
