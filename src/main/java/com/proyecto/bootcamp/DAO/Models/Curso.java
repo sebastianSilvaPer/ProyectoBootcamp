@@ -72,7 +72,6 @@ public class Curso extends BasicEntity<UUID>{
             " id='" + getId() + "'" +
             ", nombre='" + getNombre() + "'" +
             ", descripcion='" + getDescripcion() + "'" +
-            // ", materias='" + getMaterias() + "'" +
             "}\n";
     }
 

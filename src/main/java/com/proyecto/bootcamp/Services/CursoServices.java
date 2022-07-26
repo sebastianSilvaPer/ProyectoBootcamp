@@ -89,7 +89,7 @@ public class CursoServices {
     }
 
     public void deleteAll(List<CursoDTO> listCursoDTO) {
-        Boolean exist = listCursoDTO.stream().allMatch(x->cursoRepository.existsById(x.getId()));                                                    
+        Boolean exist = listCursoDTO.stream().allMatch(curso->cursoRepository.existsById(curso.getId()));                                                    
         
         if(exist){
             listCursoDTO.stream()
@@ -104,7 +104,7 @@ public class CursoServices {
         if(exist){
             List<MateriaDTOWithCurso> materias = cursoDTO.getMaterias()
                                                     .stream()
-                                                    .map(m->materiaService.mapper.dtoToWithCurso(m, cursoDTO.getId()))
+                                                    .map(materia->materiaService.mapper.dtoToWithCurso(materia, cursoDTO.getId()))
                                                     .toList();
             materiaService.deleteAll(materias);
             Curso curso = mapper.dtoToCurso(cursoDTO);
@@ -121,7 +121,7 @@ public class CursoServices {
             List<MateriaDTOWithCurso> materias = curso 
                             .getMaterias()
                             .stream()
-                            .map(m->materiaService.mapper.materiaToDTOWithCurso(m))
+                            .map(materiaService.mapper::materiaToDTOWithCurso)
                             .toList();
             
             materiaService.deleteAll(materias);
