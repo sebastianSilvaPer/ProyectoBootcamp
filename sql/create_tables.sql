@@ -43,3 +43,15 @@ ON CURSO(id, borrado);
 
 CREATE INDEX id_index_materia
 ON MATERIA(id, borrado);
+
+-- Table usuario
+DROP TABLE IF EXISTS USUARIO;
+
+CREATE TABLE IF NOT EXISTS USUARIO(
+  id uuid DEFAULT uuid_generate_v4(),
+  nombre VARCHAR(45) NOT NULL,
+  apellido VARCHAR(45) NOT NULL,
+  correo VARCHAR(45) NOT NULL,
+  clave VARCHAR(45) NOT NULL,
+  rol VARCHAR(45) NOT NULL,
+  PRIMARY KEY(id));
