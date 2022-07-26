@@ -1,7 +1,6 @@
 package com.proyecto.bootcamp.Services;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -12,8 +11,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.proyecto.bootcamp.DAO.Models.Usuario;
@@ -21,7 +18,8 @@ import com.proyecto.bootcamp.DAO.Repositories.UsuarioCrudRepository;
 import com.proyecto.bootcamp.Services.DTO.UserDTO.UsuarioDTO;
 import com.proyecto.bootcamp.Services.Mapper.UsuarioMapper;
 
-public class UsuarioServices{
+@Service
+public class UsuarioServices implements UserDetailsService{
     @Autowired
     private UsuarioCrudRepository repository;
 
@@ -47,12 +45,12 @@ public class UsuarioServices{
         return usuarios;      
     }
 
-    // @Override
-    // public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    //     Usuario usuario = getUsuarioByCorreo(username);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Usuario usuario = getUsuarioByCorreo(username);
 
-    //     Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-    //     authorities.add(new SimpleGrantedAuthority(usuario.getRol()));
-    //     return new org.springframework.security.core.userdetails.User(usuario.getCorreo(), usuario.getClave(), authorities);
-    // }
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(usuario.getRol()));
+        return new org.springframework.security.core.userdetails.User(usuario.getCorreo(), usuario.getClave(), authorities);
+    }
 }
