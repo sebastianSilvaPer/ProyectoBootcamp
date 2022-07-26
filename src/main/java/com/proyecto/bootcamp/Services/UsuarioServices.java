@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.proyecto.bootcamp.DAO.Models.Usuario;
@@ -23,12 +24,15 @@ public class UsuarioServices implements UserDetailsService{
     @Autowired
     private UsuarioCrudRepository repository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     UsuarioMapper mapper = UsuarioMapper.INSTANCE;
 
     public UsuarioDTO saveUsuario(UsuarioDTO usuarioDTO) {
         Usuario usuarioEntity = mapper.dtoToUsuario(usuarioDTO);
-        // usuarioEntity.setClave(new BCryptPasswordEncoder().encode(usuarioEntity.getClave()));
-        repository.save(usuarioEntity);
+        usuarioEntity.setClave(passwordEncoder.encode(usuarioEntity.getClave()));
+        repository.save(usuarioEntity); 
         
         return mapper.usuarioToDTO(usuarioEntity);
     }
