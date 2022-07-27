@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.auth0.jwt.algorithms.Algorithm;
 import com.proyecto.bootcamp.Security.Filters.CustomAuthenticationFilter;
 import com.proyecto.bootcamp.Security.Filters.CustomAuthorizationFilter;
 
@@ -25,6 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired 
+    private Algorithm algorithm;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
@@ -32,24 +36,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(),algorithm);
+        
         http.csrf().disable()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        authorizations(http);
+
+        http.authorizeRequests()
+            .anyRequest()
+            .authenticated();
+        http.addFilter(customAuthenticationFilter);
+        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+    } 
+
+    public HttpSecurity authorizations(HttpSecurity http) throws Exception{
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/login/**","/usuarios/refresh/**").permitAll();
+        
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/cursos/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/cursos/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.PUT, "/cursos/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/cursos/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
 
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/materias/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/materias/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN","ROL_ESTUDIANTE");
         http.authorizeRequests().antMatchers(HttpMethod.PUT, "/materias/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN","ROL_ESTUDIANTE");
         http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/materias/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
-        
-        http.authorizeRequests()
-            .anyRequest()
-            .authenticated();
-        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
-        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-    } 
+        return http;
+    }
 
     @Bean
     @Override
