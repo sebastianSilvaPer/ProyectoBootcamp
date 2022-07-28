@@ -7,7 +7,6 @@ import com.proyecto.bootcamp.Services.DTO.UserDTO.UsuarioDTO;
 
 @Mapper(componentModel = "spring")
 public interface UsuarioMapper {
-
     public UsuarioDTO usuarioToDTO(Usuario usuario);
     public Usuario dtoToUsuario(UsuarioDTO usuario);
 }

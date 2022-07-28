@@ -43,14 +43,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         authorizations(http);
 
+        // http.authorizeRequests().anyRequest().permitAll();
         http.authorizeRequests()
             .anyRequest()
             .authenticated();
         http.addFilter(customAuthenticationFilter);
+        
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     } 
 
     public HttpSecurity authorizations(HttpSecurity http) throws Exception{
+        
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/login/**","/usuarios/refresh/**").permitAll();
         
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/cursos/**").permitAll();

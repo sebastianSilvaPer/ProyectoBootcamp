@@ -1,0 +1,46 @@
+-------------------------------------------------------------------------------
+Test set: com.proyecto.bootcamp.Services.MateriaServiceTest
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 2, Errors: 7, Skipped: 0, Time elapsed: 0.031 s <<< FAILURE! - in com.proyecto.bootcamp.Services.MateriaServiceTest
+getAll  Time elapsed: 0.016 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.proyecto.bootcamp.Services.MateriaServiceTest.getAll(MateriaServiceTest.java:72)
+
+findAllByCursoId  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.proyecto.bootcamp.Services.MateriaServiceTest.findAllByCursoId(MateriaServiceTest.java:127)
+
+update  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "com.proyecto.bootcamp.Services.Mapper.MateriaMapper.dtoWithCursoToMateria(com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTOWithCurso)" because "this.mapper" is null
+	at com.proyecto.bootcamp.Services.MateriaServiceTest.update(MateriaServiceTest.java:98)
+
+getAllPaginated  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.proyecto.bootcamp.Services.MateriaServiceTest.getAllPaginated(MateriaServiceTest.java:89)
+
+getById  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "com.proyecto.bootcamp.Services.Mapper.MateriaMapper.materiaToDTOWithCurso(com.proyecto.bootcamp.DAO.Models.Materia)" because "this.mapper" is null
+	at com.proyecto.bootcamp.Services.MateriaServiceTest.getById(MateriaServiceTest.java:81)
+
+testDeleteAll  Time elapsed: 0.004 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception thrown: java.lang.NullPointerException
+	at com.proyecto.bootcamp.Services.MateriaServiceTest.testDeleteAll(MateriaServiceTest.java:106)
+Caused by: java.lang.NullPointerException
+	at com.proyecto.bootcamp.Services.MateriaServiceTest.lambda$testDeleteAll$3(MateriaServiceTest.java:106)
+	at com.proyecto.bootcamp.Services.MateriaServiceTest.testDeleteAll(MateriaServiceTest.java:106)
+
+saveAllMateria  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.proyecto.bootcamp.Services.MateriaServiceTest.saveAllMateria(MateriaServiceTest.java:62)
+
+testDelete  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception thrown: java.lang.NullPointerException: Cannot invoke "com.proyecto.bootcamp.Services.Mapper.MateriaMapper.dtoWithCursoToMateria(com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTOWithCurso)" because "this.mapper" is null
+	at com.proyecto.bootcamp.Services.MateriaServiceTest.testDelete(MateriaServiceTest.java:113)
+Caused by: java.lang.NullPointerException: Cannot invoke "com.proyecto.bootcamp.Services.Mapper.MateriaMapper.dtoWithCursoToMateria(com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTOWithCurso)" because "this.mapper" is null
+	at com.proyecto.bootcamp.Services.MateriaServiceTest.lambda$testDelete$4(MateriaServiceTest.java:113)
+	at com.proyecto.bootcamp.Services.MateriaServiceTest.testDelete(MateriaServiceTest.java:113)
+
+saveMateria  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "com.proyecto.bootcamp.Services.Mapper.MateriaMapper.dtoWithCursoToMateria(com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTOWithCurso)" because "this.mapper" is null
+	at com.proyecto.bootcamp.Services.MateriaServiceTest.saveMateria(MateriaServiceTest.java:54)
+

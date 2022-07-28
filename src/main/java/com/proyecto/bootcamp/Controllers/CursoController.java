@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proyecto.bootcamp.Controllers.Constants.MessageConstants;
 import com.proyecto.bootcamp.Exceptions.ValidationGroups.Create;
 import com.proyecto.bootcamp.Exceptions.ValidationGroups.Delete;
 import com.proyecto.bootcamp.Exceptions.ValidationGroups.Update;
@@ -28,10 +29,8 @@ import com.proyecto.bootcamp.Services.DTO.CursoDTOs.CursoDTO;
 @RequestMapping("/cursos")
 @Validated
 public class CursoController {
-   @Autowired
+    @Autowired
     CursoServices cursoServices;
-
-    private final static String MESSAGE_POSITIVE_ZERO = "{page.zero}";
 
     @GetMapping("/{id}")
     public CursoDTO getCursoById(@PathVariable UUID id) {
@@ -39,8 +38,8 @@ public class CursoController {
     }
 
     @GetMapping
-    public List<CursoDTO> getAll(@RequestParam(defaultValue = "0",required = false) @PositiveOrZero(message = MESSAGE_POSITIVE_ZERO) Integer page,
-                                @RequestParam(defaultValue = "100",required = false) @Positive(message = "{size.positive}") Integer size) {
+    public List<CursoDTO> getAll(@RequestParam(defaultValue = "0",required = false) @PositiveOrZero(message = MessageConstants.MESSAGE_PAGE_ZERO) Integer page,
+                                @RequestParam(defaultValue = "100",required = false) @Positive(message = MessageConstants.MESSAGE_SIZE_POSITIVE) Integer size) {
         return cursoServices.getAllPaginated(page,size);
     }
 

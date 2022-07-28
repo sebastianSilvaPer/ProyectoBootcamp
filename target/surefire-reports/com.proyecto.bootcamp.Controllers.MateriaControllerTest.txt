@@ -1,0 +1,29 @@
+-------------------------------------------------------------------------------
+Test set: com.proyecto.bootcamp.Controllers.MateriaControllerTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 0.303 s <<< FAILURE! - in com.proyecto.bootcamp.Controllers.MateriaControllerTest
+getAll  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.proyecto.bootcamp.BootcampApplication]; nested exception is org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'securityConfig' for bean class [com.proyecto.bootcamp.Security.Tokens.SecurityConfig] conflicts with existing, non-compatible bean definition of same name and class [com.proyecto.bootcamp.Security.SecurityConfig]
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'securityConfig' for bean class [com.proyecto.bootcamp.Security.Tokens.SecurityConfig] conflicts with existing, non-compatible bean definition of same name and class [com.proyecto.bootcamp.Security.SecurityConfig]
+
+deleteMateria  Time elapsed: 0 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.proyecto.bootcamp.BootcampApplication]; nested exception is org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'securityConfig' for bean class [com.proyecto.bootcamp.Security.Tokens.SecurityConfig] conflicts with existing, non-compatible bean definition of same name and class [com.proyecto.bootcamp.Security.SecurityConfig]
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'securityConfig' for bean class [com.proyecto.bootcamp.Security.Tokens.SecurityConfig] conflicts with existing, non-compatible bean definition of same name and class [com.proyecto.bootcamp.Security.SecurityConfig]
+
+getMateriaById  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.proyecto.bootcamp.BootcampApplication]; nested exception is org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'securityConfig' for bean class [com.proyecto.bootcamp.Security.Tokens.SecurityConfig] conflicts with existing, non-compatible bean definition of same name and class [com.proyecto.bootcamp.Security.SecurityConfig]
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'securityConfig' for bean class [com.proyecto.bootcamp.Security.Tokens.SecurityConfig] conflicts with existing, non-compatible bean definition of same name and class [com.proyecto.bootcamp.Security.SecurityConfig]
+
+putMateria  Time elapsed: 0 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.proyecto.bootcamp.BootcampApplication]; nested exception is org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'securityConfig' for bean class [com.proyecto.bootcamp.Security.Tokens.SecurityConfig] conflicts with existing, non-compatible bean definition of same name and class [com.proyecto.bootcamp.Security.SecurityConfig]
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'securityConfig' for bean class [com.proyecto.bootcamp.Security.Tokens.SecurityConfig] conflicts with existing, non-compatible bean definition of same name and class [com.proyecto.bootcamp.Security.SecurityConfig]
+
+postMateria  Time elapsed: 0 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.proyecto.bootcamp.BootcampApplication]; nested exception is org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'securityConfig' for bean class [com.proyecto.bootcamp.Security.Tokens.SecurityConfig] conflicts with existing, non-compatible bean definition of same name and class [com.proyecto.bootcamp.Security.SecurityConfig]
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'securityConfig' for bean class [com.proyecto.bootcamp.Security.Tokens.SecurityConfig] conflicts with existing, non-compatible bean definition of same name and class [com.proyecto.bootcamp.Security.SecurityConfig]
+

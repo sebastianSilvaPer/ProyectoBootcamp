@@ -8,7 +8,6 @@ import com.proyecto.bootcamp.DAO.Models.Materia;
 import com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTO;
 import com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTOWithCurso;
 
-// @Mapper
 @Mapper(componentModel = "spring")
 public interface MateriaMapper {
     //Map materia entity to

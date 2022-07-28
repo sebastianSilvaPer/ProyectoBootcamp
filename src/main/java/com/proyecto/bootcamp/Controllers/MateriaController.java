@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proyecto.bootcamp.Controllers.Constants.MessageConstants;
 import com.proyecto.bootcamp.Exceptions.ValidationGroups.Create;
 import com.proyecto.bootcamp.Exceptions.ValidationGroups.Delete;
 import com.proyecto.bootcamp.Exceptions.ValidationGroups.Update;
@@ -37,8 +38,8 @@ public class MateriaController {
     }
 
     @GetMapping()
-    public List<MateriaDTOWithCurso> getMateriasPagination(@RequestParam(defaultValue = "0",required = false) @PositiveOrZero(message = "Page should be a number greater than zero") Integer page,
-                                                        @RequestParam(defaultValue = "100",required = false) @Positive(message = "Size should be a number greater than zero") Integer size){
+    public List<MateriaDTOWithCurso> getMateriasPagination(@RequestParam(defaultValue = "0",required = false) @PositiveOrZero(message = MessageConstants.MESSAGE_PAGE_ZERO) Integer page,
+                                                        @RequestParam(defaultValue = "100",required = false) @Positive(message = MessageConstants.MESSAGE_SIZE_POSITIVE) Integer size){
         return materiaService.getAllPaginated(page, size);    
     }
 
