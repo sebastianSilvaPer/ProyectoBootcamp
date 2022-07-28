@@ -31,13 +31,15 @@ public class CursoController {
    @Autowired
     CursoServices cursoServices;
 
+    private final static String MESSAGE_POSITIVE_ZERO = "{page.zero}";
+
     @GetMapping("/{id}")
     public CursoDTO getCursoById(@PathVariable UUID id) {
         return cursoServices.getById(id);
     }
 
     @GetMapping
-    public List<CursoDTO> getAll(@RequestParam(defaultValue = "0",required = false) @PositiveOrZero(message = "{page.zero}") Integer page,
+    public List<CursoDTO> getAll(@RequestParam(defaultValue = "0",required = false) @PositiveOrZero(message = MESSAGE_POSITIVE_ZERO) Integer page,
                                 @RequestParam(defaultValue = "100",required = false) @Positive(message = "{size.positive}") Integer size) {
         return cursoServices.getAllPaginated(page,size);
     }

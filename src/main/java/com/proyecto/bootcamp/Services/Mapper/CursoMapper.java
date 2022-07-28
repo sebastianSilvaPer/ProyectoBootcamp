@@ -6,9 +6,9 @@ import org.mapstruct.factory.Mappers;
 import com.proyecto.bootcamp.DAO.Models.Curso;
 import com.proyecto.bootcamp.Services.DTO.CursoDTOs.CursoDTO;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface CursoMapper {
-    CursoMapper INSTANCE = Mappers.getMapper(CursoMapper.class);
+    // CursoMapper INSTANCE = Mappers.getMapper(CursoMapper.class);
 
     public CursoDTO cursoToDTO(Curso curso);
     public Curso dtoToCurso(CursoDTO cursoDTO);
