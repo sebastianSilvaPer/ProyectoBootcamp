@@ -23,8 +23,8 @@ public class CursoServices {
     @Autowired
     MateriaService materiaService;
 
-    
-    CursoMapper mapper = CursoMapper.INSTANCE;
+    @Autowired
+    CursoMapper mapper;
     
     public CursoDTO saveCurso(CursoDTO cursoDTO) {
         Curso curso = mapper.dtoToCurso(cursoDTO);
