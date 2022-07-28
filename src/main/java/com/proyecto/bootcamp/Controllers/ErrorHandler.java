@@ -23,6 +23,7 @@ public class ErrorHandler {
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<JsonResponse> name(Throwable throwable) {
+        //internal server
         System.out.println(throwable);
         return null;
     }

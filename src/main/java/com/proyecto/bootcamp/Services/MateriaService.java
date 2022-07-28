@@ -20,7 +20,8 @@ public class MateriaService {
     @Autowired
     MateriaRepository materiaRepository;
     
-    MateriaMapper mapper = MateriaMapper.INSTANCE;
+    @Autowired
+    MateriaMapper mapper;
 
     public MateriaDTOWithCurso saveMateria(MateriaDTOWithCurso materiaDTO) {
         Materia materiaModel = mapper.dtoWithCursoToMateria(materiaDTO);

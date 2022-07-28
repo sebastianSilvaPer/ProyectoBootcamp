@@ -41,7 +41,8 @@ public class UsuarioServices implements UserDetailsService{
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    UsuarioMapper mapper = UsuarioMapper.INSTANCE;
+    @Autowired
+    UsuarioMapper mapper;
 
     public UsuarioDTO saveUsuario(UsuarioDTO usuarioDTO) {
         Usuario usuarioEntity = mapper.dtoToUsuario(usuarioDTO);

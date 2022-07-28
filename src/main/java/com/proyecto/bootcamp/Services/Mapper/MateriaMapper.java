@@ -3,17 +3,14 @@ package com.proyecto.bootcamp.Services.Mapper;
 import java.util.UUID;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 import com.proyecto.bootcamp.DAO.Models.Materia;
 import com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTO;
 import com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTOWithCurso;
 
 // @Mapper
-@Mapper
+@Mapper(componentModel = "spring")
 public interface MateriaMapper {
-    MateriaMapper INSTANCE = Mappers.getMapper(MateriaMapper.class);
-
     //Map materia entity to
     public MateriaDTO materiaToDTO(Materia materia);
     public MateriaDTOWithCurso materiaToDTOWithCurso(Materia materia);
