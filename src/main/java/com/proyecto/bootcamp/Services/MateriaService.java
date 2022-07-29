@@ -117,4 +117,13 @@ public class MateriaService {
                                                         .toList();   
         return materias;
     }
+
+    // public List<MateriaDTOWithCurso> getAllPaginatedByCurso(UUID cursoId){
+        
+    //     List<MateriaDTOWithCurso> materias = StreamSupport.stream(materiaRepository.findAllByCursoId(cursoId).spliterator(), false)
+    //                                                     .map(mapper::materiaToDTOWithCurso)
+    //                                                     .toList();
+    
+    //     return materias;                                                
+    // }
 }

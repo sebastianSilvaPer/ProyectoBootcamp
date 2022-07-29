@@ -49,22 +49,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .authenticated();
         http.addFilter(customAuthenticationFilter);
         
-        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new CustomAuthorizationFilter(algorithm), UsernamePasswordAuthenticationFilter.class);
     } 
 
     public HttpSecurity authorizations(HttpSecurity http) throws Exception{
         
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/login/**","/usuarios/refresh/**").permitAll();
         
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/cursos/**").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.POST, "/cursos/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/cursos/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/cursos/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/cursos").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/cursos/{id}/**").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/cursos/**").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/cursos/**").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/cursos/**").permitAll();
 
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/materias/**").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.POST, "/materias/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN","ROL_ESTUDIANTE");
-        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/materias/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN","ROL_ESTUDIANTE");
-        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/materias/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
+        // http.authorizeRequests().antMatchers(HttpMethod.POST, "/cursos/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
+        // http.authorizeRequests().antMatchers(HttpMethod.PUT, "/cursos/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
+        // http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/cursos/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
+
+        // http.authorizeRequests().antMatchers(HttpMethod.GET, "/materias/**").permitAll();
+        // http.authorizeRequests().antMatchers(HttpMethod.POST, "/materias/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN","ROL_ESTUDIANTE");
+        // http.authorizeRequests().antMatchers(HttpMethod.PUT, "/materias/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN","ROL_ESTUDIANTE");
+        // http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/materias/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
         return http;
     }
 
@@ -73,5 +78,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     public AuthenticationManager authenticationManagerBean() throws Exception{
         return super.authenticationManager();
     }
+    
     
 }

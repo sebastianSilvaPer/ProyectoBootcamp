@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.bootcamp.Controllers.Constants.MessageConstants;
 import com.proyecto.bootcamp.Exceptions.ValidationGroups.Create;
-import com.proyecto.bootcamp.Exceptions.ValidationGroups.Delete;
 import com.proyecto.bootcamp.Exceptions.ValidationGroups.Update;
 import com.proyecto.bootcamp.Services.CursoServices;
 import com.proyecto.bootcamp.Services.DTO.CursoDTOs.CursoDTO;
@@ -32,29 +31,49 @@ public class CursoController {
     @Autowired
     CursoServices cursoServices;
 
-    @GetMapping("/{id}")
-    public CursoDTO getCursoById(@PathVariable UUID id) {
-        return cursoServices.getById(id);
+    //create
+    @PostMapping()
+    public CursoDTO postCurso(@Validated(value = Create.class) @RequestBody CursoDTO cursoDTO){
+       return cursoServices.saveCurso(cursoDTO);
     }
-
+    
+    //Read
     @GetMapping
     public List<CursoDTO> getAll(@RequestParam(defaultValue = "0",required = false) @PositiveOrZero(message = MessageConstants.MESSAGE_PAGE_ZERO) Integer page,
                                 @RequestParam(defaultValue = "100",required = false) @Positive(message = MessageConstants.MESSAGE_SIZE_POSITIVE) Integer size) {
         return cursoServices.getAllPaginated(page,size);
     }
-
+    
+    //Update
     @PutMapping()
     public CursoDTO putCurso(@Validated(value = Update.class) @RequestBody CursoDTO cursoDTO) {
         return cursoServices.update(cursoDTO);
     }
-
-    @PostMapping()
-    public CursoDTO postCurso(@Validated(value = Create.class) @RequestBody CursoDTO cursoDTO){
-       return cursoServices.saveCurso(cursoDTO);
-    }    
-
+    
+    //Delete
+    //All
     @DeleteMapping()
-    public void deleteCurso(@Validated(value = Delete.class) @RequestBody CursoDTO cursoDTO) {
-        cursoServices.delete(cursoDTO);
+    public void deleteAllCursos(){
+        cursoServices.deleteAll();
+    }
+    
+    //Id
+    //Create
+    @GetMapping("/{id}")
+    public CursoDTO getCursoById(@PathVariable UUID id) {
+        return cursoServices.getById(id);
+    }
+    
+    //Update
+    @PutMapping("/{id}")
+    public CursoDTO updateCursoById(@PathVariable UUID id, @Validated(value = Create.class) @RequestBody CursoDTO cursoDTO){
+        cursoDTO.setId(id);
+        return cursoServices.update(cursoDTO);
+    }
+    
+    //Delete
+    @DeleteMapping("/{id}")
+    public void deleteCursoById(@PathVariable UUID id) {
+        cursoServices.deleteById(id);
     }
 }

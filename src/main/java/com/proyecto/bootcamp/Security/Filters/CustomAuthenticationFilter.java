@@ -21,7 +21,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyecto.bootcamp.Security.Tokens.Tokens;
 
-@Configurable
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter implements Tokens{
     private final AuthenticationManager authenticationManager;
 
@@ -44,7 +43,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         User user = (User) authentication.getPrincipal();
-        // Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
 
         String accessToken = createAccessTokenJWT(user.getUsername(), request.getRequestURI().toString(), user.getAuthorities(), algorithm);
         String refreshToken = createRefreshTokenJWT(user.getUsername(), request.getRequestURI().toString(), algorithm);

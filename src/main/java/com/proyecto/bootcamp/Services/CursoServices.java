@@ -88,7 +88,11 @@ public class CursoServices {
         }
     }
 
-    public void deleteAll(List<CursoDTO> listCursoDTO) {
+    public void deleteAll() {
+        cursoRepository.deleteAll();
+    } 
+
+    public void deleteAllList(List<CursoDTO> listCursoDTO) {
         Boolean exist = listCursoDTO.stream().allMatch(curso->cursoRepository.existsById(curso.getId()));                                                    
         
         if(exist){

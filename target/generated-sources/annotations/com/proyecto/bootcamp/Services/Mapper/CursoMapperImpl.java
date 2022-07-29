@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-07-28T09:18:04-0500",
+    date = "2022-07-29T10:44:17-0500",
     comments = "version: 1.5.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.3 (Eclipse Adoptium)"
 )
 @Component
@@ -27,10 +27,10 @@ public class CursoMapperImpl implements CursoMapper {
 
         CursoDTO cursoDTO = new CursoDTO();
 
-        cursoDTO.setId( curso.getId() );
-        cursoDTO.setNombre( curso.getNombre() );
         cursoDTO.setDescripcion( curso.getDescripcion() );
+        cursoDTO.setId( curso.getId() );
         cursoDTO.setMaterias( materiaSetToMateriaDTOList( curso.getMaterias() ) );
+        cursoDTO.setNombre( curso.getNombre() );
 
         return cursoDTO;
     }
@@ -43,10 +43,10 @@ public class CursoMapperImpl implements CursoMapper {
 
         Curso curso = new Curso();
 
-        curso.setId( cursoDTO.getId() );
-        curso.setNombre( cursoDTO.getNombre() );
         curso.setDescripcion( cursoDTO.getDescripcion() );
+        curso.setId( cursoDTO.getId() );
         curso.setMaterias( materiaDTOListToMateriaSet( cursoDTO.getMaterias() ) );
+        curso.setNombre( cursoDTO.getNombre() );
 
         return curso;
     }
@@ -58,11 +58,11 @@ public class CursoMapperImpl implements CursoMapper {
 
         MateriaDTO materiaDTO = new MateriaDTO();
 
-        materiaDTO.setId( materia.getId() );
         materiaDTO.setDia( materia.getDia() );
-        materiaDTO.setHora( materia.getHora() );
         materiaDTO.setFechafin( materia.getFechafin() );
         materiaDTO.setFechainicio( materia.getFechainicio() );
+        materiaDTO.setHora( materia.getHora() );
+        materiaDTO.setId( materia.getId() );
 
         return materiaDTO;
     }
@@ -87,11 +87,11 @@ public class CursoMapperImpl implements CursoMapper {
 
         Materia materia = new Materia();
 
-        materia.setId( materiaDTO.getId() );
         materia.setDia( materiaDTO.getDia() );
-        materia.setHora( materiaDTO.getHora() );
         materia.setFechafin( materiaDTO.getFechafin() );
         materia.setFechainicio( materiaDTO.getFechainicio() );
+        materia.setHora( materiaDTO.getHora() );
+        materia.setId( materiaDTO.getId() );
 
         return materia;
     }

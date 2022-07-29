@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-07-28T09:25:00-0500",
+    date = "2022-07-29T07:31:39-0500",
     comments = "version: 1.5.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.3 (Eclipse Adoptium)"
 )
 @Component
@@ -21,12 +21,12 @@ public class UsuarioMapperImpl implements UsuarioMapper {
 
         UsuarioDTO usuarioDTO = new UsuarioDTO();
 
-        usuarioDTO.setApellido( usuario.getApellido() );
-        usuarioDTO.setClave( usuario.getClave() );
-        usuarioDTO.setCorreo( usuario.getCorreo() );
-        usuarioDTO.setId( usuario.getId() );
-        usuarioDTO.setNombre( usuario.getNombre() );
-        usuarioDTO.setRol( usuario.getRol() );
+        usuarioDTO.id( usuario.getId() );
+        usuarioDTO.nombre( usuario.getNombre() );
+        usuarioDTO.apellido( usuario.getApellido() );
+        usuarioDTO.correo( usuario.getCorreo() );
+        usuarioDTO.clave( usuario.getClave() );
+        usuarioDTO.rol( usuario.getRol() );
 
         return usuarioDTO;
     }
@@ -40,11 +40,11 @@ public class UsuarioMapperImpl implements UsuarioMapper {
         Usuario usuario1 = new Usuario();
 
         usuario1.setId( usuario.getId() );
-        usuario1.setApellido( usuario.getApellido() );
-        usuario1.setClave( usuario.getClave() );
-        usuario1.setCorreo( usuario.getCorreo() );
-        usuario1.setNombre( usuario.getNombre() );
-        usuario1.setRol( usuario.getRol() );
+        usuario1.nombre( usuario.getNombre() );
+        usuario1.apellido( usuario.getApellido() );
+        usuario1.correo( usuario.getCorreo() );
+        usuario1.clave( usuario.getClave() );
+        usuario1.rol( usuario.getRol() );
 
         return usuario1;
     }

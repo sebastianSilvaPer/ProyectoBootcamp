@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-07-28T09:26:13-0500",
+    date = "2022-07-29T07:31:39-0500",
     comments = "version: 1.5.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.3 (Eclipse Adoptium)"
 )
 @Component
@@ -23,11 +23,11 @@ public class MateriaMapperImpl implements MateriaMapper {
 
         MateriaDTO materiaDTO = new MateriaDTO();
 
+        materiaDTO.setId( materia.getId() );
         materiaDTO.setDia( materia.getDia() );
+        materiaDTO.setHora( materia.getHora() );
         materiaDTO.setFechafin( materia.getFechafin() );
         materiaDTO.setFechainicio( materia.getFechainicio() );
-        materiaDTO.setHora( materia.getHora() );
-        materiaDTO.setId( materia.getId() );
 
         return materiaDTO;
     }
@@ -40,11 +40,11 @@ public class MateriaMapperImpl implements MateriaMapper {
 
         MateriaDTOWithCurso materiaDTOWithCurso = new MateriaDTOWithCurso();
 
+        materiaDTOWithCurso.setId( materia.getId() );
         materiaDTOWithCurso.setDia( materia.getDia() );
+        materiaDTOWithCurso.setHora( materia.getHora() );
         materiaDTOWithCurso.setFechafin( materia.getFechafin() );
         materiaDTOWithCurso.setFechainicio( materia.getFechainicio() );
-        materiaDTOWithCurso.setHora( materia.getHora() );
-        materiaDTOWithCurso.setId( materia.getId() );
         materiaDTOWithCurso.setCurso( materia.getCurso() );
 
         return materiaDTOWithCurso;
@@ -59,11 +59,11 @@ public class MateriaMapperImpl implements MateriaMapper {
         Materia materia = new Materia();
 
         if ( materiaDTO != null ) {
+            materia.setId( materiaDTO.getId() );
             materia.setDia( materiaDTO.getDia() );
+            materia.setHora( materiaDTO.getHora() );
             materia.setFechafin( materiaDTO.getFechafin() );
             materia.setFechainicio( materiaDTO.getFechainicio() );
-            materia.setHora( materiaDTO.getHora() );
-            materia.setId( materiaDTO.getId() );
         }
         materia.setCurso( curso );
 
@@ -79,11 +79,11 @@ public class MateriaMapperImpl implements MateriaMapper {
         MateriaDTOWithCurso materiaDTOWithCurso = new MateriaDTOWithCurso();
 
         if ( materiaDTO != null ) {
+            materiaDTOWithCurso.setId( materiaDTO.getId() );
             materiaDTOWithCurso.setDia( materiaDTO.getDia() );
+            materiaDTOWithCurso.setHora( materiaDTO.getHora() );
             materiaDTOWithCurso.setFechafin( materiaDTO.getFechafin() );
             materiaDTOWithCurso.setFechainicio( materiaDTO.getFechainicio() );
-            materiaDTOWithCurso.setHora( materiaDTO.getHora() );
-            materiaDTOWithCurso.setId( materiaDTO.getId() );
         }
         materiaDTOWithCurso.setCurso( curso );
 
@@ -99,11 +99,11 @@ public class MateriaMapperImpl implements MateriaMapper {
         Materia materia = new Materia();
 
         materia.setCurso( materiaDTOWithCurso.getCurso() );
+        materia.setId( materiaDTOWithCurso.getId() );
         materia.setDia( materiaDTOWithCurso.getDia() );
+        materia.setHora( materiaDTOWithCurso.getHora() );
         materia.setFechafin( materiaDTOWithCurso.getFechafin() );
         materia.setFechainicio( materiaDTOWithCurso.getFechainicio() );
-        materia.setHora( materiaDTOWithCurso.getHora() );
-        materia.setId( materiaDTOWithCurso.getId() );
 
         return materia;
     }
@@ -116,11 +116,11 @@ public class MateriaMapperImpl implements MateriaMapper {
 
         MateriaDTO materiaDTO = new MateriaDTO();
 
+        materiaDTO.setId( materiaDTOWithCurso.getId() );
         materiaDTO.setDia( materiaDTOWithCurso.getDia() );
+        materiaDTO.setHora( materiaDTOWithCurso.getHora() );
         materiaDTO.setFechafin( materiaDTOWithCurso.getFechafin() );
         materiaDTO.setFechainicio( materiaDTOWithCurso.getFechainicio() );
-        materiaDTO.setHora( materiaDTOWithCurso.getHora() );
-        materiaDTO.setId( materiaDTOWithCurso.getId() );
 
         return materiaDTO;
     }

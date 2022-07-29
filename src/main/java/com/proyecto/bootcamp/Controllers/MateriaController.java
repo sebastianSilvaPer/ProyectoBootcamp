@@ -23,24 +23,24 @@ import com.proyecto.bootcamp.Exceptions.ValidationGroups.Create;
 import com.proyecto.bootcamp.Exceptions.ValidationGroups.Delete;
 import com.proyecto.bootcamp.Exceptions.ValidationGroups.Update;
 import com.proyecto.bootcamp.Services.MateriaService;
+import com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTO;
 import com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTOWithCurso;
 
 @RestController
-@RequestMapping("/materias")
+@RequestMapping("/cursos/{idCurso}/materias")
 @Validated
 public class MateriaController {
     @Autowired
     MateriaService materiaService;
 
     @GetMapping("/{id}")
-    public MateriaDTOWithCurso getMateriaById(@PathVariable UUID id) {
+    public MateriaDTOWithCurso getMateriaById(@PathVariable("id") UUID id) {
         return materiaService.getById(id);
     }
 
     @GetMapping()
-    public List<MateriaDTOWithCurso> getMateriasPagination(@RequestParam(defaultValue = "0",required = false) @PositiveOrZero(message = MessageConstants.MESSAGE_PAGE_ZERO) Integer page,
-                                                        @RequestParam(defaultValue = "100",required = false) @Positive(message = MessageConstants.MESSAGE_SIZE_POSITIVE) Integer size){
-        return materiaService.getAllPaginated(page, size);    
+    public List<MateriaDTO> getMaterias(@PathVariable("idCurso") UUID cursoId){            
+        return materiaService.findAllByCursoId(cursoId);    
     }
 
     @PostMapping()
