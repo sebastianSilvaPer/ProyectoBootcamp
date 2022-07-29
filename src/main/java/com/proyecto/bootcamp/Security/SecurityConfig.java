@@ -62,6 +62,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests().antMatchers(HttpMethod.PUT, "/cursos/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/cursos/**").permitAll();
 
+        // http.authorizeRequests().antMatchers(HttpMethod.GET, "/materias/**").permitAll();
+        // http.authorizeRequests().antMatchers(HttpMethod.POST, "/materias/**").permitAll();
+        // http.authorizeRequests().antMatchers(HttpMethod.PUT, "/materias/**").permitAll();
+        // http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/materias/**").permitAll();
+
         // http.authorizeRequests().antMatchers(HttpMethod.POST, "/cursos/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
         // http.authorizeRequests().antMatchers(HttpMethod.PUT, "/cursos/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
         // http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/cursos/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");

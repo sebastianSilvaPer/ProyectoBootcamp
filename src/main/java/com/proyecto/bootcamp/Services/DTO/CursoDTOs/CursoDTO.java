@@ -10,14 +10,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
 import com.proyecto.bootcamp.Exceptions.ValidationGroups.Create;
-import com.proyecto.bootcamp.Exceptions.ValidationGroups.Delete;
 import com.proyecto.bootcamp.Exceptions.ValidationGroups.Update;
-import com.proyecto.bootcamp.Exceptions.ValidationGroups.UpdateNoId;
 import com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTO;
 
 public class CursoDTO {
-    @Null(groups = {Create.class,UpdateNoId.class})
-    @NotNull(groups = {Update.class,Delete.class})
+    @Null(groups = {Create.class})
+    @NotNull(groups = {Update.class})
     private UUID id;
     @NotBlank
     private String nombre;

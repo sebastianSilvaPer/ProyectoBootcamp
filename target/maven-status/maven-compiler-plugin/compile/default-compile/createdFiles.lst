@@ -1,4 +1,3 @@
-com\proyecto\bootcamp\Exceptions\ValidationGroups$Delete.class
 com\proyecto\bootcamp\Controllers\CursoController.class
 com\proyecto\bootcamp\DAO\Repositories\UsuarioCrudRepository.class
 com\proyecto\bootcamp\Controllers\MateriaController.class
@@ -13,10 +12,12 @@ com\proyecto\bootcamp\Exceptions\NotFoundException.class
 com\proyecto\bootcamp\Controllers\ErrorHandler.class
 com\proyecto\bootcamp\Security\Filters\CustomAuthenticationFilter.class
 com\proyecto\bootcamp\Services\Mapper\UsuarioMapper.class
+com\proyecto\bootcamp\Exceptions\ValidationGroups$UpdateNoId.class
 com\proyecto\bootcamp\Services\UsuarioServices.class
 com\proyecto\bootcamp\Services\Mapper\CursoMapper.class
 com\proyecto\bootcamp\Exceptions\ValidationGroups$Update.class
 com\proyecto\bootcamp\BootcampApplication.class
+com\proyecto\bootcamp\Security\Tokens\SecurityConfigBeans.class
 com\proyecto\bootcamp\DAO\Models\BasicEntity.class
 com\proyecto\bootcamp\DAO\Models\Curso.class
 com\proyecto\bootcamp\DAO\Models\Usuario.class
@@ -30,9 +31,8 @@ com\proyecto\bootcamp\Services\Mapper\MateriaMapperImpl.class
 com\proyecto\bootcamp\DAO\Repositories\MateriaRepository.class
 com\proyecto\bootcamp\Security\Filters\CustomAuthorizationFilter.class
 com\proyecto\bootcamp\Services\DTO\UserDTO\UsuarioDTO.class
-com\proyecto\bootcamp\Security\Tokens\SecurityConfig.class
 com\proyecto\bootcamp\DAO\Repositories\CursoRepository.class
-com\proyecto\bootcamp\Services\DTO\MateriaDTOs\MateriaDTOWithCurso.class
 com\proyecto\bootcamp\Services\Mapper\UsuarioMapperImpl.class
+com\proyecto\bootcamp\Controllers\Constants\MessageConstants.class
 com\proyecto\bootcamp\Exceptions\JsonResponse.class
 com\proyecto\bootcamp\Services\Mapper\MateriaMapper.class

@@ -14,12 +14,11 @@ import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 
 import com.proyecto.bootcamp.Exceptions.ValidationGroups.Create;
-import com.proyecto.bootcamp.Exceptions.ValidationGroups.Delete;
 import com.proyecto.bootcamp.Exceptions.ValidationGroups.Update;
 
 public class MateriaDTO {
     @Null(groups = Create.class)
-    @NotNull(groups = {Update.class,Delete.class})
+    @NotNull(groups = {Update.class})
     private UUID id;
     
     @NotBlank

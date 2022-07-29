@@ -12,7 +12,6 @@ import com.proyecto.bootcamp.DAO.Models.Materia;
 import com.proyecto.bootcamp.DAO.Repositories.MateriaRepository;
 import com.proyecto.bootcamp.Exceptions.NotFoundException;
 import com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTO;
-import com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTOWithCurso;
 import com.proyecto.bootcamp.Services.Mapper.MateriaMapper;
 
 @Service
@@ -23,83 +22,47 @@ public class MateriaService {
     @Autowired
     MateriaMapper mapper;
 
-    public MateriaDTOWithCurso saveMateria(MateriaDTOWithCurso materiaDTO) {
-        Materia materiaModel = mapper.dtoWithCursoToMateria(materiaDTO);
+    public MateriaDTO saveMateria(MateriaDTO materiaDTO, UUID cursoID) {
+        Materia materiaModel = mapper.dtoToMateria(materiaDTO, cursoID);
         materiaRepository.save(materiaModel);
-        return mapper.materiaToDTOWithCurso(materiaModel);
+        return mapper.materiaToDTO(materiaModel);
     }
 
-    public List<MateriaDTOWithCurso> saveAllMateria(List<MateriaDTOWithCurso> listMateriaDTO) {
-        List<Materia> listMateria = listMateriaDTO.stream()
-            .map(mapper::dtoWithCursoToMateria)
-            .toList();
-
-        Iterable<Materia> savedResult =  materiaRepository.saveAll(listMateria);
-
-        List<MateriaDTOWithCurso> materias = StreamSupport.stream(savedResult.spliterator(), false)
-                                                        .map(mapper::materiaToDTOWithCurso)
-                                                        .toList();
+    public List<MateriaDTO> findAllByCursoId(UUID id) {
+        List<MateriaDTO> materias = StreamSupport.stream(materiaRepository.findAllByCursoId(id).spliterator(), false)
+                                                        .map(mapper::materiaToDTO)
+                                                        .toList();   
         return materias;
     }
 
-    public List<MateriaDTOWithCurso> getAll(){
-        List<MateriaDTOWithCurso> materias = StreamSupport.stream(materiaRepository.findAll().spliterator(), false)
-                                                        .map(mapper::materiaToDTOWithCurso)
-                                                        .toList();
-        return materias;                                                
+    public List<MateriaDTO> updateList(List<MateriaDTO> listDTOs, UUID cursoId){
+        Boolean exists = listDTOs.stream().
+                allMatch(materia -> materiaRepository.existsById(materia.getId()));
+        if(!exists){
+            throw new NotFoundException("Can't update, one of the materias doesn't exist");
+        }else{
+            return listDTOs.stream()
+                            .map(materiaDTO -> {
+                                Materia materiaModel = mapper.dtoToMateria(materiaDTO, cursoId);
+                                materiaModel = materiaRepository.update(materiaModel);
+                                return  materiaModel;
+                            })
+                            .map(mapper::materiaToDTO)
+                            .toList();
+        }
     }
 
-    public MateriaDTOWithCurso getById(UUID id){
+    public MateriaDTO getById(UUID id){
         Optional<Materia> materiaOpt = materiaRepository.findById(id);
         if(!materiaOpt.isEmpty()){
-            return mapper.materiaToDTOWithCurso(materiaOpt.get());
+            return mapper.materiaToDTO(materiaOpt.get());
         }else{
             throw new NotFoundException("Not found by the given key: "+id);
         }
     }
 
-    public List<MateriaDTOWithCurso> getAllPaginated(int page, int size){
-        
-        List<MateriaDTOWithCurso> materias = StreamSupport.stream(materiaRepository.findAllPaginated(size, (page)*size).spliterator(), false)
-                                                        .map(mapper::materiaToDTOWithCurso)
-                                                        .toList();
-    
-        return materias;                                                
-    }
-
-    public MateriaDTOWithCurso update(MateriaDTOWithCurso materiaDTO){
-        Boolean exist = materiaRepository.existsById(materiaDTO.getId());
-        if(exist){
-            Materia materia = mapper.dtoWithCursoToMateria(materiaDTO);
-            materiaRepository.update(materia);
-            return mapper.materiaToDTOWithCurso(materia);
-        }else{
-            throw new NotFoundException("Can't update, materia doesn't exist");
-        }
-    }
-
-    public void deleteAll(List<MateriaDTOWithCurso> listMateriaDTO) {
-        Boolean exist = listMateriaDTO.stream().allMatch(x->materiaRepository.existsById(x.getId()));                                                    
-        
-        if(exist){
-            List<Materia> materiasList = listMateriaDTO.stream()
-                                                    .map(mapper::dtoWithCursoToMateria)
-                                                    .toList();
-        
-            materiaRepository.deleteAll(materiasList);
-        }else{
-            throw new NotFoundException("Can't delete, materia doesn't exist");
-        }
-    }
-
-    public void delete(MateriaDTOWithCurso materiaDTO) {
-        Boolean exist = materiaRepository.existsById(materiaDTO.getId());
-        if(exist){
-            Materia materia = mapper.dtoWithCursoToMateria(materiaDTO);
-            materiaRepository.delete(materia);
-        }else{
-            throw new NotFoundException("Can't delete, materia doesn't exist");
-        }
+    public void deleteAllCursoId(UUID cursoId) {
+        materiaRepository.deleteAllByCursoId(cursoId);
     }
 
     public void deleteById(UUID id) {
@@ -110,20 +73,20 @@ public class MateriaService {
             throw new NotFoundException("Can't delete, materia doesn't exist");
         }
     }
-    
-    public List<MateriaDTO> findAllByCursoId(UUID id) {
-        List<MateriaDTO> materias = StreamSupport.stream(materiaRepository.findAllByCursoId(id).spliterator(), false)
-                                                        .map(mapper::materiaToDTO)
-                                                        .toList();   
-        return materias;
+
+    public void deleteAll() {
+        materiaRepository.deleteAll();
     }
 
-    // public List<MateriaDTOWithCurso> getAllPaginatedByCurso(UUID cursoId){
-        
-    //     List<MateriaDTOWithCurso> materias = StreamSupport.stream(materiaRepository.findAllByCursoId(cursoId).spliterator(), false)
-    //                                                     .map(mapper::materiaToDTOWithCurso)
-    //                                                     .toList();
-    
-    //     return materias;                                                
-    // }
+    public MateriaDTO updateMateria(MateriaDTO materiaDTO, UUID id, UUID cursoId) {
+        materiaDTO.setId(id);
+        Boolean exist = materiaRepository.existsById(id);
+        if(exist){
+            Materia materia = mapper.dtoToMateria(materiaDTO, cursoId);
+            materiaRepository.update(materia);
+            return mapper.materiaToDTO(materia);
+        }else{
+            throw new NotFoundException("Can't update, materia doesn't exist");
+        }
+    }
 }

@@ -30,10 +30,10 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-@AutoConfigureMockMvc
+// @AutoConfigureMockMvc
 @SpringBootTest()
 public class CursoControllerTest {
-    @Autowired
+    /* @Autowired
     MockMvc mockMvc;
 
     @MockBean
@@ -152,6 +152,6 @@ public class CursoControllerTest {
     private void addDtos() {
         cursosDTO.add(new CursoDTO(dtoToTest.getId(), dtoToTest.getNombre(),dtoToTest.getDescripcion(),new ArrayList<>()));
         cursosDTO.add(new CursoDTO(dtoToTest.getId(), dtoToTest.getNombre(),dtoToTest.getDescripcion(),new ArrayList<>()));
-    }
+    } */
 }
     

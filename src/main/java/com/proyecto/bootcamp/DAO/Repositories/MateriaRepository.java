@@ -51,12 +51,17 @@ public interface MateriaRepository extends BasicCrudRepository<Materia, UUID>{
     @Transactional(readOnly = true)
     public long count();
 
-    @Query(" SELECT * FROM MATERIA WHERE curso_id = :id AND borrado='f' ")
+    @Query(" SELECT * FROM MATERIA WHERE curso_id = :curso_id AND borrado='f' ")
     @Transactional(readOnly = true)
-    public Iterable<Materia> findAllByCursoId(@Param("id") UUID id);
+    public Iterable<Materia> findAllByCursoId(@Param("curso_id") UUID cursoId);
 
     @Transactional
     default Iterable<Materia> findAllByCurso(Curso curso){
         return findAllByCursoId(curso.getId());
     };
+
+    @Query("UPDATE MATERIA set borrado='t' WHERE curso_id = :curso_id")
+    @Transactional
+    @Modifying
+	void deleteAllByCursoId(@Param("curso_id") UUID cursoId);
 }

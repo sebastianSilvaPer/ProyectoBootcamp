@@ -1,12 +1,12 @@
 -------------------------------------------------------------------------------
 Test set: com.proyecto.bootcamp.Services.CursoServicesTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 6, Skipped: 0, Time elapsed: 0.445 s <<< FAILURE! - in com.proyecto.bootcamp.Services.CursoServicesTest
-getAll  Time elapsed: 0.434 s  <<< ERROR!
+Tests run: 6, Failures: 0, Errors: 6, Skipped: 0, Time elapsed: 0.444 s <<< FAILURE! - in com.proyecto.bootcamp.Services.CursoServicesTest
+getAll  Time elapsed: 0.433 s  <<< ERROR!
 java.lang.NullPointerException
 	at com.proyecto.bootcamp.Services.CursoServicesTest.getAll(CursoServicesTest.java:85)
 
-update  Time elapsed: 0.001 s  <<< ERROR!
+update  Time elapsed: 0.002 s  <<< ERROR!
 java.lang.NullPointerException: Cannot invoke "com.proyecto.bootcamp.Services.Mapper.CursoMapper.dtoToCurso(com.proyecto.bootcamp.Services.DTO.CursoDTOs.CursoDTO)" because "this.mapper" is null
 	at com.proyecto.bootcamp.Services.CursoServicesTest.update(CursoServicesTest.java:119)
 
@@ -18,7 +18,7 @@ getById  Time elapsed: 0.002 s  <<< ERROR!
 java.lang.NullPointerException: Cannot invoke "com.proyecto.bootcamp.Services.Mapper.CursoMapper.cursoToDTO(com.proyecto.bootcamp.DAO.Models.Curso)" because "this.mapper" is null
 	at com.proyecto.bootcamp.Services.CursoServicesTest.getById(CursoServicesTest.java:109)
 
-saveCurso  Time elapsed: 0.002 s  <<< ERROR!
+saveCurso  Time elapsed: 0.001 s  <<< ERROR!
 java.lang.NullPointerException: Cannot invoke "com.proyecto.bootcamp.Services.Mapper.CursoMapper.dtoToCurso(com.proyecto.bootcamp.Services.DTO.CursoDTOs.CursoDTO)" because "this.mapper" is null
 	at com.proyecto.bootcamp.Services.CursoServicesTest.saveCurso(CursoServicesTest.java:62)
 

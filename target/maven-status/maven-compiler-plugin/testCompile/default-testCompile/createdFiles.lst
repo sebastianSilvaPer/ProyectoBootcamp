@@ -1,7 +1,5 @@
 com\proyecto\bootcamp\Controllers\MateriaControllerTest.class
 com\proyecto\bootcamp\Services\MateriaServiceTest.class
-com\proyecto\bootcamp\Controllers\CursoControllerTest$1.class
-com\proyecto\bootcamp\Controllers\MateriaControllerTest$1.class
 com\proyecto\bootcamp\Controllers\CursoControllerTest.class
 com\proyecto\bootcamp\BootcampApplicationTests.class
 com\proyecto\bootcamp\Services\CursoServicesTest.class

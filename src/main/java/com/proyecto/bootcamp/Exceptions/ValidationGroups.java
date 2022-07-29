@@ -8,6 +8,5 @@ public final class ValidationGroups {
     
     public interface Create extends Default {};
     public interface Update extends Default {};
-    public interface Delete extends Default {};
     public interface UpdateNoId extends Default {};
 }

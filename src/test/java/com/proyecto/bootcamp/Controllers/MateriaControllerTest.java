@@ -3,7 +3,6 @@ package com.proyecto.bootcamp.Controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTOWithCurso;
 import com.proyecto.bootcamp.Services.MateriaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,10 +31,10 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
-@AutoConfigureMockMvc
+// @AutoConfigureMockMvc
 @SpringBootTest
 class MateriaControllerTest{
-    @Autowired
+    /*@Autowired 
     MockMvc mockMvc;
 
     @MockBean
@@ -164,5 +163,5 @@ class MateriaControllerTest{
     private void addDtos() {
         listDTOs.add(dtoToTest);
         listDTOs.add(dtoToTest);
-    }
+    } */
 }
