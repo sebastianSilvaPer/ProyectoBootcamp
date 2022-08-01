@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.csrf().disable()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
         authorizations(http);
 
         http.authorizeRequests()
@@ -52,28 +53,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     } 
 
     public HttpSecurity authorizations(HttpSecurity http) throws Exception{
-        
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/login/**","/usuarios/refresh/**").permitAll();
         
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/cursos").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/cursos/{id}/**").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.POST, "/cursos/**").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/cursos/**").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/cursos/**").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/cursos").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/cursos").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/cursos").hasAnyAuthority("ROL_ADMIN");
 
-        // http.authorizeRequests().antMatchers(HttpMethod.GET, "/materias/**").permitAll();
-        // http.authorizeRequests().antMatchers(HttpMethod.POST, "/materias/**").permitAll();
-        // http.authorizeRequests().antMatchers(HttpMethod.PUT, "/materias/**").permitAll();
-        // http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/materias/**").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/cursos/{id}").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/cursos/{id}").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/cursos/{id}").hasAnyAuthority("ROL_ADMIN");
 
-        // http.authorizeRequests().antMatchers(HttpMethod.POST, "/cursos/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
-        // http.authorizeRequests().antMatchers(HttpMethod.PUT, "/cursos/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
-        // http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/cursos/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/cursos/{idCurso}/materias").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/cursos/{idCurso}/materias").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/cursos/{idCurso}/materias").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/cursos/{idCurso}/materias").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
 
-        // http.authorizeRequests().antMatchers(HttpMethod.GET, "/materias/**").permitAll();
-        // http.authorizeRequests().antMatchers(HttpMethod.POST, "/materias/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN","ROL_ESTUDIANTE");
-        // http.authorizeRequests().antMatchers(HttpMethod.PUT, "/materias/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN","ROL_ESTUDIANTE");
-        // http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/materias/**").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/cursos/{idCurso}/materias/{id}").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/cursos/{idCurso}/materias/{id}").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/cursos/{idCurso}/materias/{id}").hasAnyAuthority("ROL_PROFESOR","ROL_ADMIN");
+        
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/usuarios/**").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/usuarios").hasAnyAuthority("ROL_ADMIN");
         return http;
     }
 

@@ -18,9 +18,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.proyecto.bootcamp.Security.Tokens.Tokens;
+import com.proyecto.bootcamp.Security.Tokens.TokensUtils;
 
-public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter implements Tokens{
+public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter implements TokensUtils{
     private final AuthenticationManager authenticationManager;
 
     private final Algorithm algorithm;

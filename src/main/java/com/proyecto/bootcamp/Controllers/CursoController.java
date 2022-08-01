@@ -31,47 +31,38 @@ public class CursoController {
     @Autowired
     CursoServices cursoServices;
 
-    //create
     @PostMapping()
     public CursoDTO postCurso(@Validated(value = Create.class) @RequestBody CursoDTO cursoDTO){
        return cursoServices.saveCurso(cursoDTO);
     }
     
-    //Read
     @GetMapping
     public List<CursoDTO> getAll(@RequestParam(defaultValue = "0",required = false) @PositiveOrZero(message = MessageConstants.MESSAGE_PAGE_ZERO) Integer page,
                                 @RequestParam(defaultValue = "100",required = false) @Positive(message = MessageConstants.MESSAGE_SIZE_POSITIVE) Integer size) {
         return cursoServices.getAllPaginated(page,size);
     }
     
-    //Update
     @PutMapping()
     public CursoDTO putCurso(@Validated(value = Update.class) @RequestBody CursoDTO cursoDTO) {
         return cursoServices.update(cursoDTO);
     }
     
-    //Delete
-    //All
     @DeleteMapping()
     public void deleteAllCursos(){
         cursoServices.deleteAll();
     }
     
-    //Id
-    //Create
     @GetMapping("/{id}")
     public CursoDTO getCursoById(@PathVariable UUID id) {
         return cursoServices.getById(id);
     }
     
-    //Update
     @PutMapping("/{id}")
     public CursoDTO updateCursoById(@PathVariable UUID id, @Validated @RequestBody CursoDTO cursoDTO){
         cursoDTO.setId(id);
         return cursoServices.update(cursoDTO);
     }
     
-    //Delete
     @DeleteMapping("/{id}")
     public void deleteCursoById(@PathVariable UUID id) {
         cursoServices.deleteById(id);

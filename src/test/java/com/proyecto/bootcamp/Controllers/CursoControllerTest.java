@@ -30,10 +30,10 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 @SpringBootTest()
 public class CursoControllerTest {
-    /* @Autowired
+    @Autowired
     MockMvc mockMvc;
 
     @MockBean
@@ -53,17 +53,46 @@ public class CursoControllerTest {
     }
 
     @Test
-    public void getCursoById() throws Exception {
-        when(cursoServices.getById(any(UUID.class))).thenReturn(dtoToTest);
+    public void postCurso() throws Exception {
+        when(cursoServices.saveCurso(any(CursoDTO.class))).thenReturn(dtoToTest);
+
+        dtoToTest.setId(null);
         MockHttpServletRequestBuilder builder =
-                MockMvcRequestBuilders.get("/cursos/" + UUID.randomUUID())
+                MockMvcRequestBuilders.post("/cursos")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
                         .content(new ObjectMapper().writeValueAsString(dtoToTest));
+
         MvcResult resultActions = this.mockMvc.perform(builder)
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
         assertCurso(resultActions);
+    }
+
+    @Test
+    public void getAll() throws Exception {
+        when(cursoServices.getAllPaginated(anyInt(), anyInt())).thenReturn(cursosDTO);
+        MockHttpServletRequestBuilder builder =
+                MockMvcRequestBuilders.get("/cursos")
+                        .param("page", "1")
+                        .param("size", "1")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8");
+
+        MvcResult resultActions = this.mockMvc.perform(builder)
+                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+
+        String response = resultActions.getResponse().getContentAsString();
+        List<CursoDTO> cursoDTOList = new ObjectMapper().readValue(response, new TypeReference<List<CursoDTO>>() {});
+
+        cursoDTOList.forEach(curso -> {
+            assertAll(()->{
+                assertEquals(curso.getId(), dtoToTest.getId());
+                assertEquals(curso.getNombre(), dtoToTest.getNombre());
+                assertEquals(curso.getDescripcion(), dtoToTest.getDescripcion());
+            });
+        });
     }
 
     @Test
@@ -82,12 +111,23 @@ public class CursoControllerTest {
     }
 
     @Test
-    public void postCurso() throws Exception {
-        when(cursoServices.saveCurso(any(CursoDTO.class))).thenReturn(dtoToTest);
-
-        dtoToTest.setId(null);
+    public void deleteCursos() throws Exception {
+        doNothing().when(cursoServices).deleteAll();
         MockHttpServletRequestBuilder builder =
-                MockMvcRequestBuilders.post("/cursos")
+                MockMvcRequestBuilders.delete("/cursos")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8");
+
+        this.mockMvc.perform(builder)
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void getCursoById() throws Exception {
+        when(cursoServices.getById(any(UUID.class))).thenReturn(dtoToTest);
+        MockHttpServletRequestBuilder builder =
+                MockMvcRequestBuilders.get("/cursos/" + UUID.randomUUID())
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
@@ -96,45 +136,38 @@ public class CursoControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
         assertCurso(resultActions);
     }
-
+    
     @Test
-    public void deleteCurso() throws Exception {
-        doNothing().when(cursoServices).delete(any(CursoDTO.class));
+    public void updateCursoById() throws Exception {
+        when(cursoServices.update(any(CursoDTO.class))).thenReturn(dtoToTest);
+        
+        dtoToTest.setId(null);
+        
         MockHttpServletRequestBuilder builder =
-                MockMvcRequestBuilders.delete("/cursos")
+                MockMvcRequestBuilders.put("/cursos/" + UUID.randomUUID())
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
                         .content(new ObjectMapper().writeValueAsString(dtoToTest));
-        this.mockMvc.perform(builder)
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-
-    @Test
-    public void getAll() throws Exception {
-        when(cursoServices.getAllPaginated(anyInt(), anyInt())).thenReturn(cursosDTO);
-        MockHttpServletRequestBuilder builder =
-                MockMvcRequestBuilders.get("/cursos")
-                        .param("page", "1")
-                        .param("size", "1")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .characterEncoding("UTF-8")
-                        .content(new ObjectMapper().writeValueAsString(dtoToTest));
-
         MvcResult resultActions = this.mockMvc.perform(builder)
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+        
+        assertCurso(resultActions);
+    }
 
-        String response = resultActions.getResponse().getContentAsString();
-        List<CursoDTO> cursoDTO = new ObjectMapper().readValue(response, new TypeReference<List<CursoDTO>>() {});
-        cursoDTO.forEach(curso -> {
-            assertAll(()->{
-                assertEquals(curso.getId(), dtoToTest.getId());
-                assertEquals(curso.getNombre(), dtoToTest.getNombre());
-                assertEquals(curso.getDescripcion(), dtoToTest.getDescripcion());
-            });
-        });
+    @Test
+    public void deleteCursoById() throws Exception {
+        doNothing().when(cursoServices).deleteById(any(UUID.class));
+        
+        MockHttpServletRequestBuilder builder =
+                MockMvcRequestBuilders.delete("/cursos/" + UUID.randomUUID())
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8");
+
+        this.mockMvc.perform(builder)
+                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+        
     }
 
     private void assertCurso(MvcResult resultActions) throws UnsupportedEncodingException, JsonProcessingException {
@@ -152,6 +185,6 @@ public class CursoControllerTest {
     private void addDtos() {
         cursosDTO.add(new CursoDTO(dtoToTest.getId(), dtoToTest.getNombre(),dtoToTest.getDescripcion(),new ArrayList<>()));
         cursosDTO.add(new CursoDTO(dtoToTest.getId(), dtoToTest.getNombre(),dtoToTest.getDescripcion(),new ArrayList<>()));
-    } */
+    }
 }
     

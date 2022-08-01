@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
-public interface Tokens {
+public interface TokensUtils {
     public default String createAccessTokenJWT(String name, String url, Collection<GrantedAuthority> authorities, Algorithm algorithm){
         int accessTime = 10 * 60 * 1000;
     

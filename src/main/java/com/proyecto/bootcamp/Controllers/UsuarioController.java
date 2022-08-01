@@ -1,6 +1,7 @@
 package com.proyecto.bootcamp.Controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,8 +38,8 @@ public class UsuarioController {
     }
 
     @PostMapping("/refresh")
-    public void refreshToken(HttpServletRequest request, HttpServletResponse response){
-        services.refreshToken(request, response);
+    public Map<String, String> refreshToken(HttpServletRequest request, HttpServletResponse response){
+        return services.refreshToken(request.getHeader("Authorization"), request.getRequestURI());
     }
 }
 

@@ -25,40 +25,33 @@ public class MateriaController {
     @Autowired
     MateriaService materiaService;
 
-    //Create
     @PostMapping()
     public MateriaDTO postMateria(@PathVariable("idCurso") UUID cursoId, 
                                     @Validated(value = Create.class) @RequestBody MateriaDTO materiaDTO){
        return materiaService.saveMateria(materiaDTO, cursoId);
     }
 
-    //Read
     @GetMapping()
     public List<MateriaDTO> getMaterias(@PathVariable("idCurso") UUID cursoId){            
         return materiaService.findAllByCursoId(cursoId);    
     }
 
-    //Update
     @PutMapping()
     public List<MateriaDTO> putMateria(@PathVariable("idCurso") UUID cursoId, 
                                         @Validated @RequestBody List<MateriaDTO> materiaDTO) {
         return materiaService.updateList(materiaDTO, cursoId);
     }
 
-    //Delete
     @DeleteMapping()
     public void delete(@PathVariable("idCurso") UUID cursoId){
         materiaService.deleteAllCursoId(cursoId);
     }
 
-    //Id
-    //Read
     @GetMapping("/{id}")
     public MateriaDTO getMateriaById(@PathVariable("id") UUID id) {
         return materiaService.getById(id);
     }
-    
-    //Update
+
     @PutMapping("/{id}")
     public MateriaDTO putMateriaById(@PathVariable("idCurso") UUID cursoId,
                                     @PathVariable("id") UUID id,
@@ -66,7 +59,6 @@ public class MateriaController {
         return materiaService.updateMateria(materiaDTO, id, cursoId);
     }
     
-    //Delete
     @DeleteMapping("/{id}")
     public void deleteOne(@PathVariable("id") UUID id){
         materiaService.deleteById(id);

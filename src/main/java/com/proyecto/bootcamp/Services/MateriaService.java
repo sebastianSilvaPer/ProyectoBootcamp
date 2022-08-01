@@ -84,7 +84,7 @@ public class MateriaService {
         if(exist){
             Materia materia = mapper.dtoToMateria(materiaDTO, cursoId);
             materiaRepository.update(materia);
-            return mapper.materiaToDTO(materia);
+            return mapper.materiaToDTO(materia);    
         }else{
             throw new NotFoundException("Can't update, materia doesn't exist");
         }
