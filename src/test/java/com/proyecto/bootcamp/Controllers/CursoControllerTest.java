@@ -30,7 +30,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-// @AutoConfigureMockMvc
+@AutoConfigureMockMvc
 @SpringBootTest()
 public class CursoControllerTest {
     /* @Autowired

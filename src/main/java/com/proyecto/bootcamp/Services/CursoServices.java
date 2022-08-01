@@ -38,10 +38,10 @@ public class CursoServices {
 
         Iterable<Curso> savedResult =  cursoRepository.saveAll(listCursos);
 
-        List<CursoDTO> materias = StreamSupport.stream(savedResult.spliterator(), false)
+        List<CursoDTO> cursos = StreamSupport.stream(savedResult.spliterator(), false)
                                                         .map(mapper::cursoToDTO)
                                                         .toList();
-        return materias;
+        return cursos;
     }
 
     public List<CursoDTO> getAll(){

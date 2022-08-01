@@ -21,6 +21,7 @@ public class CursoDTO {
     private String nombre;
     @NotNull
     private String descripcion;
+    
     private List<MateriaDTO> materias = new ArrayList<>();
 
     public UUID getId() {

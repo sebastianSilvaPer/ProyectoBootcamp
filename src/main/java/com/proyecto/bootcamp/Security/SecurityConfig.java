@@ -43,7 +43,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         authorizations(http);
 
-        // http.authorizeRequests().anyRequest().permitAll();
         http.authorizeRequests()
             .anyRequest()
             .authenticated();
