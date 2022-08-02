@@ -22,7 +22,6 @@ import org.mockito.MockitoAnnotations;
 
 import com.proyecto.bootcamp.DAO.Models.Curso;
 import com.proyecto.bootcamp.DAO.Repositories.CursoRepository;
-import com.proyecto.bootcamp.DAO.Repositories.MateriaRepository;
 import com.proyecto.bootcamp.Services.DTO.CursoDTOs.CursoDTO;
 import com.proyecto.bootcamp.Services.Mapper.CursoMapper;
 

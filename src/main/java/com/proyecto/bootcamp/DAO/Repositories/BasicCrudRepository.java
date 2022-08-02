@@ -2,7 +2,6 @@ package com.proyecto.bootcamp.DAO.Repositories;
 
 import java.io.Serializable;
 
-import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.Param;
