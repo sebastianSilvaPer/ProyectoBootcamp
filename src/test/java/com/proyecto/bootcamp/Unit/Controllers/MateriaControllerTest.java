@@ -42,9 +42,6 @@ class MateriaControllerTest{
     @MockBean
     MateriaService materiaService;
 
-    @Autowired
-    MateriaController materiaController;
-
     MateriaDTO dtoToTest = new MateriaDTO();
     List<MateriaDTO> listDTOs = new ArrayList<>();
     UUID cursoId = UUID.randomUUID();

@@ -19,13 +19,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.*;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 import com.proyecto.bootcamp.Controllers.CursoController;
 import com.proyecto.bootcamp.Services.CursoServices;
+import com.proyecto.bootcamp.Services.MateriaService;
+import com.proyecto.bootcamp.Services.UsuarioServices;
 import com.proyecto.bootcamp.Services.DTO.CursoDTOs.CursoDTO;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -33,13 +38,13 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+@SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
-@SpringBootTest()
 public class CursoControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     CursoServices cursoServices;
     
     CursoDTO dtoToTest = new CursoDTO();

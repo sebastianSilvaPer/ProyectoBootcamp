@@ -102,4 +102,8 @@ public class CursoServices {
             throw new NotFoundException("Can't delete, curso doesn't exist");
         }
     }
+
+    public long countAll(){
+        return cursoRepository.count();
+    }
 }

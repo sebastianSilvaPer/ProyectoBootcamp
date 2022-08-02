@@ -9,12 +9,10 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.StreamSupport;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.jdbc.Sql;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.proyecto.bootcamp.DAO.Models.Curso;
@@ -41,13 +39,6 @@ class CursoRepositoryTest extends PostgresContainerTest {
         curso.setDescripcion("Curso de Java");
         for (int i = 0; i < 5; i++) {
             cursolist.add(curso);    
-        }
-    }
-
-    @AfterEach
-    void tearDown() {
-        if(curso.getId() != null) {
-            cursoRepository.deleteById(curso.getId());
         }
     }
 
