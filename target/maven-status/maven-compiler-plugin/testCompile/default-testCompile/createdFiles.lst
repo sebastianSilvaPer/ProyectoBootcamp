@@ -1,5 +1,10 @@
-com\proyecto\bootcamp\Controllers\MateriaControllerTest.class
-com\proyecto\bootcamp\Services\MateriaServiceTest.class
-com\proyecto\bootcamp\Controllers\CursoControllerTest.class
+com\proyecto\bootcamp\Unit\Controllers\MateriaControllerTest$1.class
+com\proyecto\bootcamp\Unit\Controllers\MateriaControllerTest.class
+com\proyecto\bootcamp\Unit\Services\MateriaServiceTest.class
+com\proyecto\bootcamp\Unit\Controllers\CursoControllerTest.class
+com\proyecto\bootcamp\Integration\IT\PostgresContainerTest.class
+com\proyecto\bootcamp\Unit\Services\CursoServicesTest.class
+com\proyecto\bootcamp\Unit\Controllers\CursoControllerTest$1.class
+com\proyecto\bootcamp\Integration\DAO\Repositories\MateriaRepositoryTest.class
 com\proyecto\bootcamp\BootcampApplicationTests.class
-com\proyecto\bootcamp\Services\CursoServicesTest.class
+com\proyecto\bootcamp\Integration\DAO\Repositories\CursoRepositoryTest.class

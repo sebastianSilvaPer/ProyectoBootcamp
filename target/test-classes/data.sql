@@ -8,18 +8,18 @@ insert into CURSO(nombre, descripcion) values
 ('programacion funcional','Lorem ipsum dolor sit amet, consectetur.');
 
 INSERT INTO MATERIA(dia, hora, fecha_fin, fecha_inicio, curso_id) VALUES
-('Martes', 8, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Calculo diferencial')),
-('Miercoles', 14, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Calculo diferencial')),
-('Lunes', 8, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Calculo diferencial')),
-('Martes', 11, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Calculo integral')),
-('Jueves', 8, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Calculo integral')),
-('Miercoles', 8, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Fisica mecanica')),
-('Martes', 16, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Fisica mecanica')),
-('Viernes', 11, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='programacion funcional')),
-('Miercoles', 9, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Calculo vectorial')),
-('Lunes', 15, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Calculo vectorial')),
-('Viernes', 9, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Fisica electromagnetismo')),
-('Martes', 7, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Fisica electromagnetismo'));
+('Martes', 8, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Calculo diferencial' LIMIT 1 OFFSET 0)),
+('Miercoles', 14, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Calculo diferencial' LIMIT 1 OFFSET 0)),
+('Lunes', 8, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Calculo diferencial' LIMIT 1 OFFSET 0)),
+('Martes', 11, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Calculo integral' LIMIT 1 OFFSET 0)),
+('Jueves', 8, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Calculo integral' LIMIT 1 OFFSET 0)),
+('Miercoles', 8, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Fisica mecanica' LIMIT 1 OFFSET 0)),
+('Martes', 16, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Fisica mecanica' LIMIT 1 OFFSET 0)),
+('Viernes', 11, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='programacion funcional' LIMIT 1 OFFSET 0)),
+('Miercoles', 9, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Calculo vectorial' LIMIT 1 OFFSET 0)),
+('Lunes', 15, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Calculo vectorial' LIMIT 1 OFFSET 0)),
+('Viernes', 9, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Fisica electromagnetismo' LIMIT 1 OFFSET 0)),
+('Martes', 7, '2022-06-01', '2022-11-023', (select id from CURSO where nombre='Fisica electromagnetismo' LIMIT 1 OFFSET 0));
 
 INSERT INTO USUARIO(nombre, apellido, correo, clave, rol) VALUES 
 ('Carlos', 'Silva', 'carlos@gmail.com', '$2a$12$5JpcLwsGEMqmLJphFMi9G.inBJCIiZBPS99n0nIYXmf4nVLWUPi/S', 'ROL_ESTUDIANTE'),

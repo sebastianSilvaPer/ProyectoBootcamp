@@ -2,7 +2,6 @@ com\proyecto\bootcamp\Controllers\CursoController.class
 com\proyecto\bootcamp\DAO\Repositories\UsuarioCrudRepository.class
 com\proyecto\bootcamp\Controllers\MateriaController.class
 com\proyecto\bootcamp\DAO\Models\Materia.class
-com\proyecto\bootcamp\Security\Tokens\Tokens.class
 com\proyecto\bootcamp\DAO\Repositories\BasicCrudRepository.class
 com\proyecto\bootcamp\Exceptions\ValidationGroups$Create.class
 com\proyecto\bootcamp\Services\DTO\CursoDTOs\CursoDTO.class
@@ -27,6 +26,7 @@ com\proyecto\bootcamp\Services\MateriaService.class
 com\proyecto\bootcamp\Services\DTO\MateriaDTOs\MateriaDTO.class
 com\proyecto\bootcamp\Exceptions\ValidationGroups.class
 com\proyecto\bootcamp\Security\SecurityConfig.class
+com\proyecto\bootcamp\Security\Tokens\TokensUtils.class
 com\proyecto\bootcamp\Services\Mapper\MateriaMapperImpl.class
 com\proyecto\bootcamp\DAO\Repositories\MateriaRepository.class
 com\proyecto\bootcamp\Security\Filters\CustomAuthorizationFilter.class
