@@ -2,6 +2,7 @@ package com.proyecto.bootcamp.DAO.Repositories;
 
 import java.io.Serializable;
 
+import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.Param;
@@ -22,11 +23,12 @@ public interface BasicCrudRepository<T extends BasicEntity<ID>, ID extends Seria
 
     @Override
     @Transactional
-	default void delete(T entity){
+    default void delete(T entity){
         deleteById(entity.getId());
     };
 
     @Override
+    @Transactional
     default void deleteAllById(Iterable<? extends ID> ids) {
         ids.forEach(this::deleteById);
     }
