@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -17,6 +18,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import com.proyecto.bootcamp.Exceptions.JsonResponse;
 import com.proyecto.bootcamp.Exceptions.NotFoundException;
+import com.proyecto.bootcamp.Exceptions.UnAuthorizedException;
 
 @RestControllerAdvice
 public class ErrorHandler {
@@ -25,7 +27,10 @@ public class ErrorHandler {
     public ResponseEntity<JsonResponse> name(Throwable throwable) {
         //internal server
         System.out.println(throwable);
-        return null;
+        return new ResponseEntity<JsonResponse>(new JsonResponse(
+            "Internal_Server_Error",
+            "There is a problem",
+            "We are trying to fix this"),HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(NotFoundException.class)
@@ -90,10 +95,28 @@ public class ErrorHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<JsonResponse> name(HttpMessageNotReadableException e, WebRequest request) {
+    public ResponseEntity<JsonResponse> HttpMessageNotReadableException(HttpMessageNotReadableException e, WebRequest request) {
         
         return new ResponseEntity<JsonResponse>(new JsonResponse("Input_not_readable",
                                                         "The input format it's not valid",
                                                         "The app can not read the values that you are sending"),HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InternalAuthenticationServiceException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResponseEntity<JsonResponse> InternalAuthenticationServiceException(InternalAuthenticationServiceException e, WebRequest request) {
+        
+        return new ResponseEntity<JsonResponse>(new JsonResponse("Authentication_Exception",
+                                                        "The authentication failed",
+                                                        e.getMessage()),HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UnAuthorizedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<JsonResponse> UnAuthorizedException(UnAuthorizedException e, WebRequest request) {
+        
+        return new ResponseEntity<JsonResponse>(new JsonResponse("Authentication_Exception",
+                                                        "The authentication failed",
+                                                        e.getMessage()),HttpStatus.BAD_REQUEST);
     }
 }
