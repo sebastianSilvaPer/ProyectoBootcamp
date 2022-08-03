@@ -6,14 +6,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
-import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.auth0.jwt.algorithms.Algorithm;
 
 @Configuration
 public class SecurityConfigBeans {
-    // private static final String salt = KeyGenerators.string().generateKey();
 	@Value("${spring.security.salt.default}")
 	private String salt;
 
