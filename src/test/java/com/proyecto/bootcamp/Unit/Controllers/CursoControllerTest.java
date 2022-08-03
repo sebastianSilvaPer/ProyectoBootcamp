@@ -191,8 +191,8 @@ public class CursoControllerTest {
     }
 
     private void addDtos() {
-        cursosDTO.add(new CursoDTO(dtoToTest.getId(), dtoToTest.getNombre(),dtoToTest.getDescripcion(),new ArrayList<>()));
-        cursosDTO.add(new CursoDTO(dtoToTest.getId(), dtoToTest.getNombre(),dtoToTest.getDescripcion(),new ArrayList<>()));
+        cursosDTO.add(dtoToTest);
+        cursosDTO.add(dtoToTest);
     }
 }
     

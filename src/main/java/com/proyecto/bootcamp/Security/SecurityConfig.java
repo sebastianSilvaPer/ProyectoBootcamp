@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -29,6 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired 
     private Algorithm algorithm;
 
+    @Autowired
+    private TextEncryptor textEncryptor;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
@@ -36,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(),algorithm);
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(), algorithm, textEncryptor);
         
         http.csrf().disable()
             .sessionManagement()
@@ -49,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .authenticated();
         http.addFilter(customAuthenticationFilter);
         
-        http.addFilterBefore(new CustomAuthorizationFilter(algorithm), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new CustomAuthorizationFilter(algorithm, textEncryptor), UsernamePasswordAuthenticationFilter.class);
     } 
 
     public HttpSecurity authorizations(HttpSecurity http) throws Exception{

@@ -25,7 +25,7 @@ import com.proyecto.bootcamp.DAO.Repositories.CursoRepository;
 import com.proyecto.bootcamp.Services.CursoServices;
 import com.proyecto.bootcamp.Services.MateriaService;
 import com.proyecto.bootcamp.Services.DTO.CursoDTOs.CursoDTO;
-import com.proyecto.bootcamp.Services.Mapper.CursoMapper;
+import com.proyecto.bootcamp.Services.Mapper.curso.CursoMapper;
 
 class CursoServicesTest{
     @Mock
@@ -60,8 +60,8 @@ class CursoServicesTest{
         this.addCursos();
         this.addDtos();
 
-        when(cursoMapper.cursoToDTO(any(Curso.class))).thenReturn(dtoToTest);
-        when(cursoMapper.dtoToCurso(any(CursoDTO.class))).thenReturn(cursoToTest);
+        when(cursoMapper.mapToDto(any(Curso.class))).thenReturn(dtoToTest);
+        when(cursoMapper.mapToEntity(any(CursoDTO.class))).thenReturn(cursoToTest);
     }
 
     @Test

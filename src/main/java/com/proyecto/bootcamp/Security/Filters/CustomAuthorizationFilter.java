@@ -2,8 +2,8 @@ package com.proyecto.bootcamp.Security.Filters;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.auth0.jwt.JWT;
@@ -26,9 +27,11 @@ import com.proyecto.bootcamp.Exceptions.UnAuthorizedException;
 public class CustomAuthorizationFilter extends OncePerRequestFilter{
     // @Autowired
     private Algorithm algorithm;
+    private TextEncryptor userEncryptor;
 
-    public CustomAuthorizationFilter(Algorithm algorithm){
+    public CustomAuthorizationFilter(Algorithm algorithm, TextEncryptor userEncryptor) {
         this.algorithm = algorithm;
+        this.userEncryptor = userEncryptor;
     }
 
     @Override
@@ -45,12 +48,15 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter{
                     DecodedJWT decodedJWT = jwtVerifier.verify(token);    
 
                     String username = decodedJWT.getSubject();
-                    String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
+                    List<String> roles = decodedJWT.getClaim("roles").asList(String.class);
                     Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-                    
-                    Arrays.stream(roles).forEach(role->{
-                        authorities.add(new SimpleGrantedAuthority(role));
+
+                    roles.forEach(rol -> {
+                        String decrypt = userEncryptor.decrypt(rol.toString());
+                        authorities.add(new SimpleGrantedAuthority(decrypt));
                     });
+                    
+                    System.out.println();
                     
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
                     

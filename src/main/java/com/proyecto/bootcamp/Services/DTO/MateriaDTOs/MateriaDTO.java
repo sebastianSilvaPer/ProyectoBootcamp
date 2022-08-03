@@ -9,18 +9,11 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
+import com.proyecto.bootcamp.Services.DTO.BasicDTO;
 
-import com.proyecto.bootcamp.Exceptions.ValidationGroups.Create;
-import com.proyecto.bootcamp.Exceptions.ValidationGroups.Update;
-
-public class MateriaDTO {
-    @Null(groups = Create.class)
-    @NotNull(groups = {Update.class})
-    private UUID id;
-    
+public class MateriaDTO extends BasicDTO<UUID>{
     @NotBlank
     @Pattern(regexp = "[a-zA-Z]{5,9}$", message = "{materia.dia.pattern}")
     private String dia;
@@ -38,22 +31,6 @@ public class MateriaDTO {
     private Date fechainicio;
 
     public MateriaDTO() {
-    }
-
-    public MateriaDTO(UUID id, String dia, Integer hora, Date fechafin, Date fechainicio) {
-        this.id = id;
-        this.dia = dia;
-        this.hora = hora;
-        this.fechafin = fechafin;
-        this.fechainicio = fechainicio;
-    }
-
-    public UUID getId() {
-        return this.id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getDia() {
@@ -96,12 +73,12 @@ public class MateriaDTO {
             return false;
         }
         MateriaDTO materiaDTO = (MateriaDTO) o;
-        return Objects.equals(id, materiaDTO.id) && Objects.equals(dia, materiaDTO.dia) && Objects.equals(hora, materiaDTO.hora) && Objects.equals(fechafin, materiaDTO.fechafin) && Objects.equals(fechainicio, materiaDTO.fechainicio);
+        return Objects.equals(this.getId(), materiaDTO.getId()) && Objects.equals(dia, materiaDTO.dia) && Objects.equals(hora, materiaDTO.hora) && Objects.equals(fechafin, materiaDTO.fechafin) && Objects.equals(fechainicio, materiaDTO.fechainicio);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dia, hora, fechafin, fechainicio);
+        return Objects.hash(this.getId(), dia, hora, fechafin, fechainicio);
     }
 
     @Override
@@ -113,7 +90,6 @@ public class MateriaDTO {
             ", fechafin='" + getFechafin() + "'" +
             ", fechainicio='" + getFechainicio() + "'" +
             "}\n";
-    }
-        
+    } 
 }
  

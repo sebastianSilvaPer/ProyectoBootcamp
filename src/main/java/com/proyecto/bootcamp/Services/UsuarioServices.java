@@ -26,7 +26,7 @@ import com.proyecto.bootcamp.DAO.Repositories.UsuarioCrudRepository;
 import com.proyecto.bootcamp.Exceptions.UnAuthorizedException;
 import com.proyecto.bootcamp.Security.Tokens.TokensUtils;
 import com.proyecto.bootcamp.Services.DTO.UserDTO.UsuarioDTO;
-import com.proyecto.bootcamp.Services.Mapper.UsuarioMapper;
+import com.proyecto.bootcamp.Services.Mapper.usuario.UsuarioMapper;
 
 @Service
 public class UsuarioServices implements UserDetailsService,TokensUtils{
@@ -43,21 +43,21 @@ public class UsuarioServices implements UserDetailsService,TokensUtils{
     Algorithm algorithm;
 
     public UsuarioDTO saveUsuario(UsuarioDTO usuarioDTO) {
-        Usuario usuarioEntity = mapper.dtoToUsuario(usuarioDTO);
+        Usuario usuarioEntity = mapper.mapToEntity(usuarioDTO);
         usuarioEntity.setClave(passwordEncoder.encode(usuarioEntity.getClave()));
         repository.save(usuarioEntity); 
         
-        return mapper.usuarioToDTO(usuarioEntity);
+        return mapper.mapToDto(usuarioEntity);
     }
 
     public UsuarioDTO getUsuarioByCorreo(String correo) {
         Optional<Usuario> usuario = repository.findByCorreo(correo);
-        return mapper.usuarioToDTO(usuario.get());
+        return mapper.mapToDto(usuario.get());
     }
 
     public List<UsuarioDTO> getUsuariosPaginated(int page, int size){
         List<UsuarioDTO> usuarios = StreamSupport.stream(repository.findAllPaginated(size, (page)*size).spliterator(), false)
-                                            .map(mapper::usuarioToDTO)
+                                            .map(mapper::mapToDto)
                                             .toList();
         return usuarios;      
     }
@@ -78,8 +78,8 @@ public class UsuarioServices implements UserDetailsService,TokensUtils{
 
                 JWTVerifier jwtVerifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = jwtVerifier.verify(refreshToken);    
-                String username = decodedJWT.getSubject();
-                UsuarioDTO user = this.getUsuarioByCorreo(username);
+                String email = decodedJWT.getSubject();
+                UsuarioDTO user = this.getUsuarioByCorreo(email);
 
                 Collection<GrantedAuthority> authorities = new ArrayList<>();
                     

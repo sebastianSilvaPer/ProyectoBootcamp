@@ -7,16 +7,10 @@ import java.util.UUID;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-
-import com.proyecto.bootcamp.Exceptions.ValidationGroups.Create;
-import com.proyecto.bootcamp.Exceptions.ValidationGroups.Update;
+import com.proyecto.bootcamp.Services.DTO.BasicDTO;
 import com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTO;
 
-public class CursoDTO {
-    @Null(groups = {Create.class})
-    @NotNull(groups = {Update.class})
-    private UUID id;
+public class CursoDTO extends BasicDTO<UUID> {
     @NotBlank
     private String nombre;
     @NotNull
@@ -24,13 +18,6 @@ public class CursoDTO {
     
     private List<MateriaDTO> materias = new ArrayList<>();
 
-    public UUID getId() {
-        return this.id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public String getNombre() {
         return this.nombre;
@@ -60,13 +47,6 @@ public class CursoDTO {
     public CursoDTO() {
     }
 
-    public CursoDTO(UUID id, String nombre, String descripcion, List<MateriaDTO> materias) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.materias = materias;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -75,12 +55,12 @@ public class CursoDTO {
             return false;
         }
         CursoDTO cursoDTO = (CursoDTO) o;
-        return Objects.equals(id, cursoDTO.id) && Objects.equals(nombre, cursoDTO.nombre) && Objects.equals(descripcion, cursoDTO.descripcion) && Objects.equals(materias, cursoDTO.materias);
+        return Objects.equals(this.getId(), cursoDTO.getId()) && Objects.equals(nombre, cursoDTO.nombre) && Objects.equals(descripcion, cursoDTO.descripcion) && Objects.equals(materias, cursoDTO.materias);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombre, descripcion, materias);
+        return Objects.hash(this.getId(), nombre, descripcion, materias);
     }
 
     @Override

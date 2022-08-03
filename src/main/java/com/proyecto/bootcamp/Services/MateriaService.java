@@ -12,7 +12,7 @@ import com.proyecto.bootcamp.DAO.Models.Materia;
 import com.proyecto.bootcamp.DAO.Repositories.MateriaRepository;
 import com.proyecto.bootcamp.Exceptions.NotFoundException;
 import com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTO;
-import com.proyecto.bootcamp.Services.Mapper.MateriaMapper;
+import com.proyecto.bootcamp.Services.Mapper.materia.MateriaMapper;
 
 @Service
 public class MateriaService {
