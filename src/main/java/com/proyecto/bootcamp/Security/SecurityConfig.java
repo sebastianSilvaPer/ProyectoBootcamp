@@ -13,12 +13,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.auth0.jwt.algorithms.Algorithm;
-import com.proyecto.bootcamp.Exceptions.UnAuthorizedException;
+import com.proyecto.bootcamp.Security.Errors.RestAccessDeniedHandler;
+import com.proyecto.bootcamp.Security.Errors.RestAuthenticationEntryPoint;
 import com.proyecto.bootcamp.Security.Filters.CustomAuthenticationFilter;
 import com.proyecto.bootcamp.Security.Filters.CustomAuthorizationFilter;
 
@@ -55,6 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .anyRequest()
             .authenticated();
         http.addFilter(customAuthenticationFilter);
+
+        http.exceptionHandling()
+            .accessDeniedHandler(accessDeniedHandler())
+            .authenticationEntryPoint(authenticationEntryPoint());
         
         http.addFilterBefore(new CustomAuthorizationFilter(algorithm, textEncryptor), UsernamePasswordAuthenticationFilter.class);
     } 
@@ -90,4 +93,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     public AuthenticationManager authenticationManagerBean() throws Exception{
         return super.authenticationManager();
     }
+
+    @Bean
+	RestAccessDeniedHandler accessDeniedHandler() {
+		return new RestAccessDeniedHandler();
+	}
+
+	@Bean
+	RestAuthenticationEntryPoint authenticationEntryPoint() {
+		return new RestAuthenticationEntryPoint();
+	}
 }
