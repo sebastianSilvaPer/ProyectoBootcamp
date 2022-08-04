@@ -59,7 +59,7 @@ class MateriaControllerTest{
     }
 
     @Test
-    public void postMateria() throws Exception {
+    public void postMateria_ReturnOkAndAssertCurso_True() throws Exception {
         when(materiaService.saveMateria(any(MateriaDTO.class),any(UUID.class))).thenReturn(dtoToTest);
 
         dtoToTest.setId(null);
@@ -78,7 +78,7 @@ class MateriaControllerTest{
     }
 
     @Test
-    public void getAll() throws Exception {
+    public void getAll_ReturnOkAndAssertAllCurso_True() throws Exception {
         when(materiaService.findAllByCursoId(any(UUID.class))).thenReturn(listDTOs);
 
         MockHttpServletRequestBuilder builder =
@@ -94,7 +94,7 @@ class MateriaControllerTest{
     }
 
     @Test
-    public void putMaterias() throws Exception {
+    public void putMaterias_ReturnOkAndAssertCurso_True() throws Exception {
         when(materiaService.updateList(anyList(),any(UUID.class))).thenReturn(listDTOs);
 
         MockHttpServletRequestBuilder builder =
@@ -109,7 +109,7 @@ class MateriaControllerTest{
     }
 
     @Test
-    public void deleteAllMaterias() throws Exception {
+    public void deleteAllMaterias_ReturnOk_True() throws Exception {
         doNothing().when(materiaService).deleteAllCursoId(cursoId);
 
         MockHttpServletRequestBuilder builder =
@@ -123,7 +123,7 @@ class MateriaControllerTest{
     }
 
     @Test
-    public void getMateriaById() throws Exception {
+    public void getMateriaById_ReturnOkAndAssertCurso_True() throws Exception {
         when(materiaService.getById(any(UUID.class))).thenReturn(dtoToTest);
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.get("/cursos/"+cursoId.toString()+"/materias/"+UUID.randomUUID())
@@ -134,11 +134,11 @@ class MateriaControllerTest{
         MvcResult resultActions = this.mockMvc.perform(builder)
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
         
-                assertMateria(resultActions);
+        assertMateria(resultActions);
     }
 
     @Test
-    public void putMateria() throws Exception {
+    public void putMateria_ReturnOkAndAssertCurso_True() throws Exception {
         when(materiaService.updateMateria(any(MateriaDTO.class),any(UUID.class),any(UUID.class))).thenReturn(dtoToTest);
 
         dtoToTest.setId(null);
@@ -156,7 +156,7 @@ class MateriaControllerTest{
     }
 
     @Test
-    public void deleteMateria() throws Exception {
+    public void deleteMateria_ReturnOk_True() throws Exception {
         doNothing().when(materiaService).deleteById(any(UUID.class));
 
         MockHttpServletRequestBuilder builder =

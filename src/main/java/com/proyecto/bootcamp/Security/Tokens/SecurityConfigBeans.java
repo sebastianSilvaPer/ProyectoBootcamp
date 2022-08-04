@@ -28,6 +28,6 @@ public class SecurityConfigBeans {
 
 	@Bean
 	public TextEncryptor textEncryptor(){
-		
 		return Encryptors.text("password", salt);
-	}}
+	}
+}

@@ -65,14 +65,14 @@ class CursoServicesTest{
     }
 
     @Test
-    void saveCurso() {
+    void saveCurso_ReturnSameCurso_True() {
         when(cursoRepository.save(any(Curso.class))).thenReturn(cursoToTest);
         CursoDTO savedCurso = cursoServices.saveCurso(dtoToTest);
         assertDto(savedCurso);
     }
 
     @Test
-    void saveAllCursos() {
+    void saveAllCursos_ReturnSameSavedCursos_True() {
         when(cursoRepository.saveAll(anyIterable())).thenReturn((Iterable<Curso>)cursosList);
 
         List<CursoDTO> returned = cursoServices.saveAllCursos(cursosDTO);
@@ -83,7 +83,7 @@ class CursoServicesTest{
     }
 
     @Test
-    void getAll() {
+    void getAll_ReturnSameAllCursos_True() {
         when(cursoRepository.findAll()).thenReturn((Iterable<Curso>)cursosList);
         
         List<CursoDTO> returned = cursoServices.getAll();
@@ -94,7 +94,7 @@ class CursoServicesTest{
     }
 
     @Test
-    void getAllPaginated() {
+    void getAllPaginated_ReturnSameListCursos_True() {
         when(cursoRepository.findAllPaginated(anyInt(), anyInt())).thenReturn((Iterable<Curso>)cursosList);
         
         List<CursoDTO> returned = cursoServices.getAllPaginated(1, 10);
@@ -105,14 +105,14 @@ class CursoServicesTest{
     }
 
     @Test
-    void getById() {
+    void getById_ReturnSameCurso_True() {
         when(cursoRepository.findById(any(UUID.class))).thenReturn(Optional.ofNullable(cursoToTest));
         CursoDTO returned = cursoServices.getById(UUID.randomUUID());
         assertDto(returned);
     }
 
     @Test
-    void update() {
+    void update_ReturnSameUpdatedCurso_True() {
         when(cursoRepository.existsById(any())).thenReturn(true);
         when(cursoRepository.update(any(Curso.class))).thenReturn(cursoToTest);
 
@@ -121,14 +121,14 @@ class CursoServicesTest{
     }
 
     @Test
-    void testDeleteAll() {
+    void testDeleteAll_VerifyDeleteMethodsCall_True() {
         cursoServices.deleteAll();
         verify(materiaService, times(1)).deleteAll();
         verify(cursoRepository, times(1)).deleteAll();
     }
 
     @Test
-    void testDeleteById() {
+    void testDeleteById_VerifyDeleteMethodsCall_True() {
         when(cursoRepository.existsById(any())).thenReturn(true);
         when(cursoRepository.findById(any())).thenReturn(Optional.of(cursoToTest));
         

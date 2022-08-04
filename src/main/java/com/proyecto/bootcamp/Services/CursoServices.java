@@ -99,4 +99,8 @@ public class CursoServices {
     public long countAll(){
         return cursoRepository.count();
     }
+
+    public Boolean checkExistNyId(UUID id){
+        return cursoRepository.existsById(id);
+    }
 }
