@@ -15,22 +15,14 @@ import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.*;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
-import com.proyecto.bootcamp.Controllers.CursoController;
 import com.proyecto.bootcamp.Services.CursoServices;
-import com.proyecto.bootcamp.Services.MateriaService;
-import com.proyecto.bootcamp.Services.UsuarioServices;
 import com.proyecto.bootcamp.Services.DTO.CursoDTOs.CursoDTO;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -186,7 +178,6 @@ public class CursoControllerTest {
             assertEquals(cursoDTO.getId(), dtoToTest.getId());
             assertEquals(cursoDTO.getNombre(), dtoToTest.getNombre());
             assertEquals(cursoDTO.getDescripcion(), dtoToTest.getDescripcion());
-            assertEquals(cursoDTO.getMaterias(), dtoToTest.getMaterias());
         });
     }
 

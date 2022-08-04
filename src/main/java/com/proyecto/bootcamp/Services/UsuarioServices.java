@@ -14,6 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,9 @@ public class UsuarioServices implements UserDetailsService,TokensUtils{
 
     @Autowired
     Algorithm algorithm;
+
+    @Autowired
+    TextEncryptor userEncryptor;
 
     public UsuarioDTO saveUsuario(UsuarioDTO usuarioDTO) {
         Usuario usuarioEntity = mapper.mapToEntity(usuarioDTO);
@@ -79,6 +83,8 @@ public class UsuarioServices implements UserDetailsService,TokensUtils{
                 JWTVerifier jwtVerifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = jwtVerifier.verify(refreshToken);    
                 String email = decodedJWT.getSubject();
+                email = userEncryptor.decrypt(email);
+
                 UsuarioDTO user = this.getUsuarioByCorreo(email);
 
                 Collection<GrantedAuthority> authorities = new ArrayList<>();

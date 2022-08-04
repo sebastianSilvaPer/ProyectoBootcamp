@@ -48,9 +48,6 @@ public class CursoServices {
         List<CursoDTO> cursos = StreamSupport.stream(cursoRepository.findAll().spliterator(), false)
                                                         .map(mapper::mapToDto)
                                                         .toList();
-        cursos.stream().forEach(curso->{
-            curso.setMaterias(materiaService.findAllByCursoId(curso.getId()));
-        });
         return cursos;                                                
     }
 
@@ -59,9 +56,6 @@ public class CursoServices {
         List<CursoDTO> cursos = StreamSupport.stream(cursoRepository.findAllPaginated(size, (page)*size).spliterator(), false)
                                             .map(mapper::mapToDto)
                                             .toList();
-        cursos.stream().forEach(curso->{
-            curso.setMaterias(materiaService.findAllByCursoId(curso.getId()));
-        });
         return cursos;                                                
     }
 
@@ -69,7 +63,6 @@ public class CursoServices {
         Optional<Curso> cursoOpt = cursoRepository.findById(id);
         if(!cursoOpt.isEmpty()){
             CursoDTO curso = mapper.mapToDto(cursoOpt.get());
-            curso.setMaterias(materiaService.findAllByCursoId(id));
             return curso;
         }else{
             throw new NotFoundException("Not found by the given key: "+id);
