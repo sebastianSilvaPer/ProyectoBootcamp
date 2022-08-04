@@ -8,9 +8,9 @@ import javax.validation.constraints.NotNull;
 import com.proyecto.bootcamp.Services.DTO.BasicDTO;
 
 public class CursoDTO extends BasicDTO<UUID> {
-    @NotBlank
+    @NotBlank(message = "{NotBlank.CursoDTO.nombre}")
     private String nombre;
-    @NotNull
+    @NotNull(message = "{NotNull.CursoDTO.descripcion}")
     private String descripcion;
 
 

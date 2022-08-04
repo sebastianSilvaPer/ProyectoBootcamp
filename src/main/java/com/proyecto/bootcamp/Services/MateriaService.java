@@ -35,6 +35,13 @@ public class MateriaService {
         return materias;
     }
 
+    public List<MateriaDTO> findAll(int page, int size) {
+        List<MateriaDTO> materias = StreamSupport.stream(materiaRepository.findAllPaginated(size, (page)*size).spliterator(), false)
+                                                        .map(mapper::materiaToDTO)
+                                                        .toList();   
+        return materias;
+    }
+
     public List<MateriaDTO> updateList(List<MateriaDTO> listDTOs, UUID cursoId){
         Boolean exists = listDTOs.stream().
                 allMatch(materia -> materiaRepository.existsById(materia.getId()));

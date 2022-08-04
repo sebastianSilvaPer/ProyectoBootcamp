@@ -11,18 +11,19 @@ import javax.validation.constraints.Size;
 import com.proyecto.bootcamp.Services.DTO.BasicDTO;
 
 public class UsuarioDTO extends BasicDTO<UUID> {
-    @NotBlank
+    @NotBlank(message = "usuario.NotBlank.nombre")
     private String nombre;
-    @NotBlank
+    @NotBlank(message = "usuario.NotBlank.apellido")
     private String apellido;
-    @NotBlank
-    @Email
+    @NotBlank(message = "usuario.NotBlank.correo")
+    @Email(message = "usuario.email.correo")
     private String correo;
-    @NotBlank
-    @Size(min = 6, max = 30)
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).$")
+    @NotBlank(message = "usuario.NotBlank.clave")
+    @Size(min = 6, max = 30, message = "usuario.clave.size")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).$",
+                message = "{usuario.clave.pattern}")
     private String clave;
-    @NotBlank
+    @NotBlank(message = "usuario.NotBlank.rol")
     private String rol;
 
     public UsuarioDTO() {

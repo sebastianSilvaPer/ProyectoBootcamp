@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 import com.proyecto.bootcamp.Services.DTO.BasicDTO;
 
 public class MateriaDTO extends BasicDTO<UUID>{
-    @NotBlank
+    @NotBlank(message = "{materia.NotBlank.dia}")
     @Pattern(regexp = "[a-zA-Z]{5,9}$", message = "{materia.dia.pattern}")
     private String dia;
     
@@ -22,12 +22,12 @@ public class MateriaDTO extends BasicDTO<UUID>{
     @Max(18)
     private Integer hora;
     
-    @NotNull
+    @NotNull(message = "{materia.NotNull.fechainicio}")
     @Future(message = "{materia.fechainicio.future}")
     private Date fechafin;
     
-    @NotNull
-    @PastOrPresent(message = "{materia.fechainicio.pastorpresent}")
+    @NotNull(message = "{materia.NotNull.fechafin}")
+    @PastOrPresent(message = "{materia.fechafin.pastorpresent}")
     private Date fechainicio;
 
     public MateriaDTO() {

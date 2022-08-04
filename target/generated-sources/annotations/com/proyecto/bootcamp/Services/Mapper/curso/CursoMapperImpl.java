@@ -9,40 +9,24 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-03T22:20:44-0500",
+    date = "2022-08-04T14:43:52-0500",
     comments = "version: 1.5.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.3 (Eclipse Adoptium)"
 )
 @Component
 public class CursoMapperImpl implements CursoMapper {
 
     @Override
-    public Curso mapToEntity(CursoDTO dto) {
-        if ( dto == null ) {
+    public List<CursoDTO> mapListToDto(List<Curso> entities) {
+        if ( entities == null ) {
             return null;
         }
 
-        Curso curso = new Curso();
-
-        curso.setId( dto.getId() );
-        curso.setNombre( dto.getNombre() );
-        curso.setDescripcion( dto.getDescripcion() );
-
-        return curso;
-    }
-
-    @Override
-    public CursoDTO mapToDto(Curso entity) {
-        if ( entity == null ) {
-            return null;
+        List<CursoDTO> list = new ArrayList<CursoDTO>( entities.size() );
+        for ( Curso curso : entities ) {
+            list.add( mapToDto( curso ) );
         }
 
-        CursoDTO cursoDTO = new CursoDTO();
-
-        cursoDTO.setId( entity.getId() );
-        cursoDTO.setNombre( entity.getNombre() );
-        cursoDTO.setDescripcion( entity.getDescripcion() );
-
-        return cursoDTO;
+        return list;
     }
 
     @Override
@@ -60,16 +44,32 @@ public class CursoMapperImpl implements CursoMapper {
     }
 
     @Override
-    public List<CursoDTO> mapListToDto(List<Curso> entities) {
-        if ( entities == null ) {
+    public CursoDTO mapToDto(Curso entity) {
+        if ( entity == null ) {
             return null;
         }
 
-        List<CursoDTO> list = new ArrayList<CursoDTO>( entities.size() );
-        for ( Curso curso : entities ) {
-            list.add( mapToDto( curso ) );
+        CursoDTO cursoDTO = new CursoDTO();
+
+        cursoDTO.setId( entity.getId() );
+        cursoDTO.setDescripcion( entity.getDescripcion() );
+        cursoDTO.setNombre( entity.getNombre() );
+
+        return cursoDTO;
+    }
+
+    @Override
+    public Curso mapToEntity(CursoDTO dto) {
+        if ( dto == null ) {
+            return null;
         }
 
-        return list;
+        Curso curso = new Curso();
+
+        curso.setDescripcion( dto.getDescripcion() );
+        curso.setId( dto.getId() );
+        curso.setNombre( dto.getNombre() );
+
+        return curso;
     }
 }
