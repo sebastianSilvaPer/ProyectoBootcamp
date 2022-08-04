@@ -98,8 +98,6 @@ class MateriaIntegrationTest{
 
     @Test
     public void deleteAllMaterias_ReturnOk_True() throws Exception {
-        MateriaDTO materia = getMateria();
-
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.delete("/cursos/"+cursoDto.getId()+"/materias")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
