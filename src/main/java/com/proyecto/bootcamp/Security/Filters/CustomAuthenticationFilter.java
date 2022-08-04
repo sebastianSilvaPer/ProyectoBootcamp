@@ -52,15 +52,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         User user = (User) authentication.getPrincipal();
         String email = user.getUsername();
         
-        email = userEncryptor.encrypt(email);
-
-        List<GrantedAuthority> list = user.getAuthorities().stream()
-                            .map(authority -> userEncryptor.encrypt(authority.getAuthority()))
-                            .map(encoded -> new SimpleGrantedAuthority(encoded))
-                            .collect(Collectors.toList());
-        
-        String accessToken = createAccessTokenJWT(email, request.getRequestURI().toString(), list, algorithm);
-        String refreshToken = createRefreshTokenJWT(email, request.getRequestURI().toString(), algorithm);
+        String accessToken = createAccessTokenJWT(email, request.getRequestURI().toString(), user.getAuthorities(), algorithm, userEncryptor);
+        String refreshToken = createRefreshTokenJWT(email, request.getRequestURI().toString(), algorithm, userEncryptor);
         
         Map<String, String> tokens = new HashMap<>();
         tokens.put("accessToken", accessToken);

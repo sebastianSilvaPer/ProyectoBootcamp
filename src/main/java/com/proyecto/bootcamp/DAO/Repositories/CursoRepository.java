@@ -50,4 +50,8 @@ public interface CursoRepository extends BasicCrudRepository<Curso, UUID> {
     @Query("SELECT count(*) FROM CURSO WHERE borrado='f'")
     @Transactional(readOnly = true)
     public long count();
+
+    @Query("SELECT CASE WHEN count(c) > 0 THEN true ELSE false END FROM CURSO c where LOWER(c.nombre) LIKE LOWER(:nombre) AND c.borrado='f'")
+    @Transactional(readOnly = true)
+    public Boolean existByNombre(@Param("nombre") String nombre); 
 }

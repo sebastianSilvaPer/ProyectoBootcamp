@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.bootcamp.Controllers.Constants.MessageConstants;
+import com.proyecto.bootcamp.Services.TokenServices;
 import com.proyecto.bootcamp.Services.UsuarioServices;
 import com.proyecto.bootcamp.Services.DTO.UserDTO.UsuarioDTO;
 
@@ -24,22 +25,25 @@ import com.proyecto.bootcamp.Services.DTO.UserDTO.UsuarioDTO;
 @RequestMapping("/usuarios")
 public class UsuarioController {
     @Autowired
-    UsuarioServices services;
+    UsuarioServices usuarioServices;
+
+    @Autowired
+    TokenServices tokenServices;
 
     @GetMapping()
     public List<UsuarioDTO> getUsuariosPagination(@RequestParam(defaultValue = "0",required = false) @PositiveOrZero(message = MessageConstants.MESSAGE_PAGE_ZERO) Integer page,
                                                 @RequestParam(defaultValue = "100",required = false) @Positive(message = MessageConstants.MESSAGE_SIZE_POSITIVE) Integer size){
-        return services.getUsuariosPaginated(page, size);    
+        return usuarioServices.getUsuariosPaginated(page, size);    
     }
 
     @PostMapping()
     public UsuarioDTO postMateria(@RequestBody UsuarioDTO usuarioDTO){
-       return services.saveUsuario(usuarioDTO);
+       return usuarioServices.saveUsuario(usuarioDTO);
     }
 
     @PostMapping("/refresh")
     public Map<String, String> refreshToken(HttpServletRequest request, HttpServletResponse response){
-        return services.refreshToken(request.getHeader("Authorization"), request.getRequestURI());
+        return tokenServices.refreshToken(request.getHeader("Authorization"), request.getRequestURI());
     }
 }
 

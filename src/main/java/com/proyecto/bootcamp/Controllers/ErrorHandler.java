@@ -19,12 +19,13 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import com.proyecto.bootcamp.Exceptions.JsonResponse;
 import com.proyecto.bootcamp.Exceptions.NotFoundException;
 import com.proyecto.bootcamp.Exceptions.UnAuthorizedException;
+import com.proyecto.bootcamp.Exceptions.UniqueValueException;
 
 @RestControllerAdvice
 public class ErrorHandler {
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<JsonResponse> name(Throwable throwable) {
+    public ResponseEntity<JsonResponse> internalServerError(Throwable throwable) {
         //internal server
         System.out.println(throwable);
         return new ResponseEntity<JsonResponse>(new JsonResponse(
@@ -95,7 +96,7 @@ public class ErrorHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<JsonResponse> HttpMessageNotReadableException(HttpMessageNotReadableException e, WebRequest request) {
+    public ResponseEntity<JsonResponse> httpMessageNotReadableException(HttpMessageNotReadableException e, WebRequest request) {
         
         return new ResponseEntity<JsonResponse>(new JsonResponse("Input_not_readable",
                                                         "The input format it's not valid",
@@ -104,7 +105,7 @@ public class ErrorHandler {
 
     @ExceptionHandler(InternalAuthenticationServiceException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ResponseEntity<JsonResponse> InternalAuthenticationServiceException(InternalAuthenticationServiceException e, WebRequest request) {
+    public ResponseEntity<JsonResponse> internalAuthenticationServiceException(InternalAuthenticationServiceException e, WebRequest request) {
         
         return new ResponseEntity<JsonResponse>(new JsonResponse("Authentication_Exception",
                                                         "The authentication failed",
@@ -113,10 +114,19 @@ public class ErrorHandler {
 
     @ExceptionHandler(UnAuthorizedException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ResponseEntity<JsonResponse> UnAuthorizedException(UnAuthorizedException e, WebRequest request) {
+    public ResponseEntity<JsonResponse> unAuthorizedException(UnAuthorizedException e, WebRequest request) {
         
         return new ResponseEntity<JsonResponse>(new JsonResponse("Authentication_Exception",
                                                         "The authentication failed",
                                                         e.getMessage()),HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UniqueValueException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ResponseEntity<JsonResponse> uniqueValueException(UniqueValueException e, WebRequest request) {
+        
+        return new ResponseEntity<JsonResponse>(new JsonResponse("Duplicate_Value_Exception",
+                                                        "The value you are trying to insert is already in use",
+                                                        e.getMessage()),HttpStatus.UNPROCESSABLE_ENTITY);
     }
 }

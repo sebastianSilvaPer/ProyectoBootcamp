@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-04T14:46:51-0500",
+    date = "2022-08-04T17:31:45-0500",
     comments = "version: 1.5.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.3 (Eclipse Adoptium)"
 )
 @Component
@@ -24,9 +24,9 @@ public class MateriaMapperImpl implements MateriaMapper {
 
         materiaDTO.setId( materia.getId() );
         materiaDTO.setDia( materia.getDia() );
+        materiaDTO.setHora( materia.getHora() );
         materiaDTO.setFechafin( materia.getFechafin() );
         materiaDTO.setFechainicio( materia.getFechainicio() );
-        materiaDTO.setHora( materia.getHora() );
 
         return materiaDTO;
     }
@@ -40,11 +40,11 @@ public class MateriaMapperImpl implements MateriaMapper {
         Materia materia = new Materia();
 
         if ( materiaDTO != null ) {
+            materia.setId( materiaDTO.getId() );
             materia.setDia( materiaDTO.getDia() );
+            materia.setHora( materiaDTO.getHora() );
             materia.setFechafin( materiaDTO.getFechafin() );
             materia.setFechainicio( materiaDTO.getFechainicio() );
-            materia.setHora( materiaDTO.getHora() );
-            materia.setId( materiaDTO.getId() );
         }
         materia.setCurso( curso );
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.proyecto.bootcamp.DAO.Models.Curso;
 import com.proyecto.bootcamp.DAO.Repositories.CursoRepository;
 import com.proyecto.bootcamp.Exceptions.NotFoundException;
+import com.proyecto.bootcamp.Exceptions.UniqueValueException;
 import com.proyecto.bootcamp.Services.DTO.CursoDTOs.CursoDTO;
 import com.proyecto.bootcamp.Services.Mapper.curso.CursoMapper;
 
@@ -26,12 +27,18 @@ public class CursoServices {
     CursoMapper mapper;
 
     public CursoDTO saveCurso(CursoDTO cursoDTO) {
+        checkExistByNombre(cursoDTO.getNombre());
         Curso curso = mapper.mapToEntity(cursoDTO);
         cursoRepository.save(curso);
         return mapper.mapToDto(curso);
     }
 
     public List<CursoDTO> saveAllCursos(List<CursoDTO> listCursoDtos) {
+        listCursoDtos.stream()
+            .forEach((cursoDTO) -> {
+                checkExistByNombre(cursoDTO.getNombre());
+            });
+
         List<Curso> listCursos = listCursoDtos.stream()
             .map(mapper::mapToEntity)
             .toList();
@@ -70,6 +77,7 @@ public class CursoServices {
     }
 
     public CursoDTO update(CursoDTO cursoDTO){
+        checkExistByNombre(cursoDTO.getNombre());
         Boolean exist = cursoRepository.existsById(cursoDTO.getId());
         if(exist){
             Curso curso = mapper.mapToEntity(cursoDTO);
@@ -102,5 +110,10 @@ public class CursoServices {
 
     public Boolean checkExistNyId(UUID id){
         return cursoRepository.existsById(id);
+    }
+
+    public void checkExistByNombre(String nombre){
+        if(cursoRepository.existByNombre(nombre))
+            throw new UniqueValueException("Curso already exists by name: "+nombre); 
     }
 }

@@ -9,24 +9,46 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-04T14:53:03-0500",
+    date = "2022-08-04T17:31:45-0500",
     comments = "version: 1.5.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.3 (Eclipse Adoptium)"
 )
 @Component
 public class UsuarioMapperImpl implements UsuarioMapper {
 
     @Override
-    public List<UsuarioDTO> mapListToDto(List<Usuario> entities) {
-        if ( entities == null ) {
+    public Usuario mapToEntity(UsuarioDTO dto) {
+        if ( dto == null ) {
             return null;
         }
 
-        List<UsuarioDTO> list = new ArrayList<UsuarioDTO>( entities.size() );
-        for ( Usuario usuario : entities ) {
-            list.add( mapToDto( usuario ) );
+        Usuario usuario = new Usuario();
+
+        usuario.setId( dto.getId() );
+        usuario.nombre( dto.getNombre() );
+        usuario.apellido( dto.getApellido() );
+        usuario.correo( dto.getCorreo() );
+        usuario.clave( dto.getClave() );
+        usuario.rol( dto.getRol() );
+
+        return usuario;
+    }
+
+    @Override
+    public UsuarioDTO mapToDto(Usuario entity) {
+        if ( entity == null ) {
+            return null;
         }
 
-        return list;
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+
+        usuarioDTO.id( entity.getId() );
+        usuarioDTO.nombre( entity.getNombre() );
+        usuarioDTO.apellido( entity.getApellido() );
+        usuarioDTO.correo( entity.getCorreo() );
+        usuarioDTO.clave( entity.getClave() );
+        usuarioDTO.rol( entity.getRol() );
+
+        return usuarioDTO;
     }
 
     @Override
@@ -44,38 +66,16 @@ public class UsuarioMapperImpl implements UsuarioMapper {
     }
 
     @Override
-    public UsuarioDTO mapToDto(Usuario entity) {
-        if ( entity == null ) {
+    public List<UsuarioDTO> mapListToDto(List<Usuario> entities) {
+        if ( entities == null ) {
             return null;
         }
 
-        UsuarioDTO usuarioDTO = new UsuarioDTO();
-
-        usuarioDTO.id( entity.getId() );
-        usuarioDTO.setApellido( entity.getApellido() );
-        usuarioDTO.setClave( entity.getClave() );
-        usuarioDTO.setCorreo( entity.getCorreo() );
-        usuarioDTO.setNombre( entity.getNombre() );
-        usuarioDTO.setRol( entity.getRol() );
-
-        return usuarioDTO;
-    }
-
-    @Override
-    public Usuario mapToEntity(UsuarioDTO dto) {
-        if ( dto == null ) {
-            return null;
+        List<UsuarioDTO> list = new ArrayList<UsuarioDTO>( entities.size() );
+        for ( Usuario usuario : entities ) {
+            list.add( mapToDto( usuario ) );
         }
 
-        Usuario usuario = new Usuario();
-
-        usuario.setId( dto.getId() );
-        usuario.setApellido( dto.getApellido() );
-        usuario.setClave( dto.getClave() );
-        usuario.setCorreo( dto.getCorreo() );
-        usuario.setNombre( dto.getNombre() );
-        usuario.setRol( dto.getRol() );
-
-        return usuario;
+        return list;
     }
 }

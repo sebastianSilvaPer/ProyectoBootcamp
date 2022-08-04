@@ -1,6 +1,7 @@
 package com.proyecto.bootcamp.Integration.Services;
 
 import com.proyecto.bootcamp.Exceptions.NotFoundException;
+import com.proyecto.bootcamp.Exceptions.UniqueValueException;
 import com.proyecto.bootcamp.Integration.IT.PostgresContainerTest;
 import com.proyecto.bootcamp.Services.CursoServices;
 import com.proyecto.bootcamp.Services.DTO.CursoDTOs.CursoDTO;
@@ -20,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @SpringBootTest
 @Testcontainers
@@ -45,6 +47,7 @@ public class CursoServicesTest extends PostgresContainerTest {
 
     @Test
     void saveCurso_ReturnCursoWithIdNotNull_True() {
+        cursoDTO.setNombre(UUID.randomUUID().toString());
         CursoDTO saveCurso = cursoServices.saveCurso(cursoDTO);
         assertTrue(saveCurso.getId() != null);
     }
@@ -57,6 +60,9 @@ public class CursoServicesTest extends PostgresContainerTest {
 
     @Test
     void saveAllCursos_ReturnListSameSizeAndIds_True() {
+        cursolist.forEach(curso -> {
+            curso.setNombre(UUID.randomUUID().toString());
+        });
         List<CursoDTO> saveAllCursos = cursoServices.saveAllCursos(cursolist);
         assertAll(() -> {
             assertEquals(saveAllCursos.size(), cursolist.size());
@@ -83,6 +89,7 @@ public class CursoServicesTest extends PostgresContainerTest {
 
     @Test
     void getById_ReturnSameCursoAsSavedAfterGet_True(){
+        cursoDTO.setNombre(UUID.randomUUID().toString());
         CursoDTO saveCurso = cursoServices.saveCurso(cursoDTO);
         CursoDTO curso = cursoServices.getById(saveCurso.getId());
         assertCurso(curso, saveCurso);
@@ -91,28 +98,36 @@ public class CursoServicesTest extends PostgresContainerTest {
     @Test
     void update(){
         CursoDTO saveCurso = cursoServices.saveCurso(cursoDTO);
-        saveCurso.setNombre("Curso de Java 2");
+        saveCurso.setNombre(UUID.randomUUID().toString());
         CursoDTO curso = cursoServices.update(saveCurso);
         assertFalse(curso.getNombre().equals(cursoDTO.getNombre()));
     }
 
     @Test
     void deleteById() {
-        //save cursos
+        cursolist.forEach(curso -> {
+            curso.setNombre(UUID.randomUUID().toString());
+        });
         List<CursoDTO> saveAllCursos = cursoServices.saveAllCursos(cursolist);
         assertAll(() -> {
             saveAllCursos.stream().forEach(curso -> {
                 assertDoesNotThrow(()->cursoServices.getById(curso.getId())); 
             });
         });
-        
         saveAllCursos.stream().forEach(curso -> cursoServices.deleteById(curso.getId()));
-
         assertAll(() -> {
             saveAllCursos.stream().forEach(curso -> {
                 assertThrows(NotFoundException.class, ()->cursoServices.getById(curso.getId()));
             });
         });
+    }
+
+    @Test
+    void checkExistByNombre_ThrowsUniqueValueException() {
+        String nombre = UUID.randomUUID().toString();
+        cursoDTO.setNombre(nombre);
+        cursoServices.saveCurso(cursoDTO);
+        assertThrows(UniqueValueException.class, () -> cursoServices.checkExistByNombre(nombre));
     }
     
     public void assertCurso(CursoDTO cursoDTO,CursoDTO compare) {

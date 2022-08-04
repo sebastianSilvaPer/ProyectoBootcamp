@@ -2,9 +2,11 @@ package com.proyecto.bootcamp.Unit.Services;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyIterable;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -22,6 +24,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.proyecto.bootcamp.DAO.Models.Curso;
 import com.proyecto.bootcamp.DAO.Repositories.CursoRepository;
+import com.proyecto.bootcamp.Exceptions.UniqueValueException;
 import com.proyecto.bootcamp.Services.CursoServices;
 import com.proyecto.bootcamp.Services.MateriaService;
 import com.proyecto.bootcamp.Services.DTO.CursoDTOs.CursoDTO;
@@ -66,6 +69,7 @@ class CursoServicesTest{
 
     @Test
     void saveCurso_ReturnSameCurso_True() {
+        when(cursoRepository.existByNombre(anyString())).thenReturn(false);
         when(cursoRepository.save(any(Curso.class))).thenReturn(cursoToTest);
         CursoDTO savedCurso = cursoServices.saveCurso(dtoToTest);
         assertDto(savedCurso);
@@ -73,6 +77,7 @@ class CursoServicesTest{
 
     @Test
     void saveAllCursos_ReturnSameSavedCursos_True() {
+        when(cursoRepository.existByNombre(anyString())).thenReturn(false);
         when(cursoRepository.saveAll(anyIterable())).thenReturn((Iterable<Curso>)cursosList);
 
         List<CursoDTO> returned = cursoServices.saveAllCursos(cursosDTO);
@@ -113,6 +118,7 @@ class CursoServicesTest{
 
     @Test
     void update_ReturnSameUpdatedCurso_True() {
+        when(cursoRepository.existByNombre(anyString())).thenReturn(false);
         when(cursoRepository.existsById(any())).thenReturn(true);
         when(cursoRepository.update(any(Curso.class))).thenReturn(cursoToTest);
 
@@ -135,6 +141,12 @@ class CursoServicesTest{
         cursoServices.deleteById(UUID.randomUUID());
         verify(materiaService, times(1)).deleteAllCursoId(any());
         verify(cursoRepository, times(1)).deleteById(any(UUID.class));
+    }
+
+    @Test
+    void checkExistByNombre_ThrowsUniqueValueException() {
+        when(cursoRepository.existByNombre(anyString())).thenReturn(true);
+        assertThrows(UniqueValueException.class, () -> cursoServices.checkExistByNombre("Test curso"));
     }
 
     private void assertDto(CursoDTO cursoDTO) {
