@@ -23,11 +23,11 @@ public class MateriaDTO extends BasicDTO<UUID>{
     private Integer hora;
     
     @NotNull(message = "{materia.NotNull.fechainicio}")
-    @Future(message = "{materia.fechainicio.future}")
+    @Future(message = "{materia.fechafin.future}")
     private Date fechafin;
     
     @NotNull(message = "{materia.NotNull.fechafin}")
-    @PastOrPresent(message = "{materia.fechafin.pastorpresent}")
+    @PastOrPresent(message = "{materia.fechainicio.pastorpresent}")
     private Date fechainicio;
 
     public MateriaDTO() {

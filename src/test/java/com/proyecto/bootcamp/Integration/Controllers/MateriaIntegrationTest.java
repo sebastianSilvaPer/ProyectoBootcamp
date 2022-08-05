@@ -3,6 +3,7 @@ package com.proyecto.bootcamp.Integration.Controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.proyecto.bootcamp.Integration.IT.PostgresContainerTest;
 import com.proyecto.bootcamp.Services.CursoServices;
 import com.proyecto.bootcamp.Services.DTO.CursoDTOs.CursoDTO;
 import com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTO;
@@ -31,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureMockMvc(addFilters = false)
 @SpringBootTest
 @Testcontainers
-class MateriaIntegrationTest{
+class MateriaIntegrationTest extends PostgresContainerTest{
     @Autowired 
     MockMvc mockMvc;
 

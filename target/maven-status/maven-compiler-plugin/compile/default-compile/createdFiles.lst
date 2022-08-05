@@ -16,8 +16,10 @@ com\proyecto\bootcamp\Controllers\ErrorHandler.class
 com\proyecto\bootcamp\Security\Filters\CustomAuthenticationFilter.class
 com\proyecto\bootcamp\Exceptions\ValidationGroups$UpdateNoId.class
 com\proyecto\bootcamp\Services\UsuarioServices.class
+com\proyecto\bootcamp\Exceptions\UniqueValueException.class
 com\proyecto\bootcamp\Exceptions\ValidationGroups$Update.class
 com\proyecto\bootcamp\BootcampApplication.class
+com\proyecto\bootcamp\Security\Errors\RestAccessDeniedHandler.class
 com\proyecto\bootcamp\Security\Tokens\SecurityConfigBeans.class
 com\proyecto\bootcamp\DAO\Models\BasicEntity.class
 com\proyecto\bootcamp\DAO\Models\Curso.class
@@ -27,6 +29,7 @@ com\proyecto\bootcamp\Services\MateriaService.class
 com\proyecto\bootcamp\Services\DTO\MateriaDTOs\MateriaDTO.class
 com\proyecto\bootcamp\Exceptions\ValidationGroups.class
 com\proyecto\bootcamp\Security\SecurityConfig.class
+com\proyecto\bootcamp\Security\Errors\RestAuthenticationEntryPoint.class
 com\proyecto\bootcamp\Services\DTO\BasicDTO.class
 com\proyecto\bootcamp\Security\Tokens\TokensUtils.class
 com\proyecto\bootcamp\DAO\Repositories\MateriaRepository.class
@@ -34,6 +37,7 @@ com\proyecto\bootcamp\Security\Filters\CustomAuthorizationFilter.class
 com\proyecto\bootcamp\Services\DTO\UserDTO\UsuarioDTO.class
 com\proyecto\bootcamp\DAO\Repositories\CursoRepository.class
 com\proyecto\bootcamp\Services\Mapper\curso\CursoMapper.class
+com\proyecto\bootcamp\Services\TokenServices.class
 com\proyecto\bootcamp\Services\Mapper\materia\MateriaMapperImpl.class
 com\proyecto\bootcamp\Services\Mapper\materia\MateriaMapper.class
 com\proyecto\bootcamp\Controllers\Constants\MessageConstants.class

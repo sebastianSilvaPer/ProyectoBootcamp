@@ -22,9 +22,12 @@ C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation
 C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation\bootcamp\src\main\java\com\proyecto\bootcamp\BootcampApplication.java
 C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation\bootcamp\src\main\java\com\proyecto\bootcamp\DAO\Models\Usuario.java
 C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation\bootcamp\src\main\java\com\proyecto\bootcamp\DAO\Models\Curso.java
+C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation\bootcamp\src\main\java\com\proyecto\bootcamp\Services\TokenServices.java
 C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation\bootcamp\src\main\java\com\proyecto\bootcamp\DAO\Repositories\CursoRepository.java
 C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation\bootcamp\src\main\java\com\proyecto\bootcamp\Exceptions\JsonResponse.java
 C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation\bootcamp\src\main\java\com\proyecto\bootcamp\Services\Mapper\materia\MateriaMapper.java
+C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation\bootcamp\src\main\java\com\proyecto\bootcamp\Security\Errors\RestAccessDeniedHandler.java
+C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation\bootcamp\src\main\java\com\proyecto\bootcamp\Exceptions\UniqueValueException.java
 C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation\bootcamp\src\main\java\com\proyecto\bootcamp\Services\DTO\CursoDTOs\CursoDTO.java
 C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation\bootcamp\src\main\java\com\proyecto\bootcamp\Services\Mapper\curso\CursoMapper.java
 C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation\bootcamp\src\main\java\com\proyecto\bootcamp\Security\Filters\CustomAuthenticationFilter.java
@@ -32,3 +35,4 @@ C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation
 C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation\bootcamp\src\main\java\com\proyecto\bootcamp\DAO\Models\BasicEntity.java
 C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation\bootcamp\src\main\java\com\proyecto\bootcamp\DAO\Repositories\BasicCrudRepository.java
 C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation\bootcamp\src\main\java\com\proyecto\bootcamp\Services\MateriaService.java
+C:\Users\sebastian.silvam\OneDrive - Perficient, Inc\Documents\Proyecto\relation\bootcamp\src\main\java\com\proyecto\bootcamp\Security\Errors\RestAuthenticationEntryPoint.java
