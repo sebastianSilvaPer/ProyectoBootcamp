@@ -1,6 +1,6 @@
 package com.proyecto.bootcamp.Services.Mapper.usuario;
 
-import com.proyecto.bootcamp.DAO.Models.Usuario;
+import com.proyecto.bootcamp.DAO.Document.Usuario;
 import com.proyecto.bootcamp.Services.DTO.UserDTO.UsuarioDTO;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-09T08:59:20-0500",
+    date = "2022-08-09T09:06:33-0500",
     comments = "version: 1.5.2.Final, compiler: Eclipse JDT (IDE) 1.4.100.v20220318-0906, environment: Java 17.0.3 (Eclipse Adoptium)"
 )
 @Component
@@ -24,11 +24,11 @@ public class UsuarioMapperImpl implements UsuarioMapper {
         Usuario usuario = new Usuario();
 
         usuario.setId( dto.getId() );
-        usuario.nombre( dto.getNombre() );
-        usuario.apellido( dto.getApellido() );
-        usuario.correo( dto.getCorreo() );
-        usuario.clave( dto.getClave() );
-        usuario.rol( dto.getRol() );
+        usuario.setNombre( dto.getNombre() );
+        usuario.setApellido( dto.getApellido() );
+        usuario.setCorreo( dto.getCorreo() );
+        usuario.setClave( dto.getClave() );
+        usuario.setRol( dto.getRol() );
 
         return usuario;
     }

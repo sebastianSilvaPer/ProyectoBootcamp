@@ -33,11 +33,11 @@ public class UsuarioController {
     @GetMapping()
     public List<UsuarioDTO> getUsuariosPagination(@RequestParam(defaultValue = "0",required = false) @PositiveOrZero(message = MessageConstants.MESSAGE_PAGE_ZERO) Integer page,
                                                 @RequestParam(defaultValue = "100",required = false) @Positive(message = MessageConstants.MESSAGE_SIZE_POSITIVE) Integer size){
-        return usuarioServices.getUsuariosPaginated(page, size);    
+        return usuarioServices.getAll(page, size);    
     }
 
     @PostMapping()
-    public UsuarioDTO postMateria(@RequestBody UsuarioDTO usuarioDTO){
+    public UsuarioDTO postUsuario(@RequestBody UsuarioDTO usuarioDTO){
        return usuarioServices.saveUsuario(usuarioDTO);
     }
 
