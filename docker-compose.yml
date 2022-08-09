@@ -36,4 +36,22 @@ services:
       ports:
         - 8080:8080
 
-
+    mongo:
+      image: mongo
+      container_name: mongoDB
+      restart: always
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: 1234
+      ports:
+        - '27017:27017'
+      volumes:
+        - ./mongo-data:/data/db
+        - ./mongo-data/log:/var/log/mongodb/
+      healthcheck:
+        test: mongo --eval 'db.getMongo()'
+        interval: 10s
+        timeout: 1s
+        retries: 3
+        start_period: 5s
+      

@@ -3,6 +3,9 @@ package com.proyecto.bootcamp.DAO.Models;
 import java.util.Objects;
 import java.util.UUID;
 
+import org.springframework.data.relational.core.mapping.Table;
+
+@Table("usuario")
 public class Usuario extends BasicEntity<UUID>{
     private String nombre;
     private String apellido;
