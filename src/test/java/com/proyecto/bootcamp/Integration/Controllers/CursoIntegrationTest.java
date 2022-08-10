@@ -35,7 +35,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 @Testcontainers
-public class CursoIntegrationTest extends PostgresContainerTest{
+public class CursoIntegrationTest extends PostgresContainerTest {
     @Autowired
     MockMvc mockMvc;
 
@@ -56,12 +56,11 @@ public class CursoIntegrationTest extends PostgresContainerTest{
     @Test
     public void postCurso_ReturnOkAndAssertCurso_True() throws Exception {
         dtoToTest.setNombre(UUID.randomUUID().toString());
-        MockHttpServletRequestBuilder builder =
-                MockMvcRequestBuilders.post("/cursos")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .characterEncoding("UTF-8")
-                        .content(new ObjectMapper().writeValueAsString(dtoToTest));
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/cursos")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(new ObjectMapper().writeValueAsString(dtoToTest));
 
         MvcResult resultActions = this.mockMvc.perform(builder)
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
@@ -70,21 +69,21 @@ public class CursoIntegrationTest extends PostgresContainerTest{
 
     @Test
     public void getAll_ReturnOkAndAssertSize_True() throws Exception {
-        MockHttpServletRequestBuilder builder =
-                MockMvcRequestBuilders.get("/cursos")
-                        .param("page", "1")
-                        .param("size", "3")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .characterEncoding("UTF-8");
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/cursos")
+                .param("page", "1")
+                .param("size", "3")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8");
 
         MvcResult resultActions = this.mockMvc.perform(builder)
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
 
         String response = resultActions.getResponse().getContentAsString();
-        List<CursoDTO> cursoDTOList = new ObjectMapper().readValue(response, new TypeReference<List<CursoDTO>>() {});
+        List<CursoDTO> cursoDTOList = new ObjectMapper().readValue(response, new TypeReference<List<CursoDTO>>() {
+        });
 
-        assertAll(()->{
+        assertAll(() -> {
             cursoDTOList.forEach(curso -> {
                 assertTrue(curso instanceof CursoDTO);
             });
@@ -94,59 +93,56 @@ public class CursoIntegrationTest extends PostgresContainerTest{
 
     @Test
     public void putCurso_ReturnOkAndNotEqualName_True() throws Exception {
-        
-        MockHttpServletRequestBuilder builder =
-                MockMvcRequestBuilders.put("/cursos")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .characterEncoding("UTF-8")
-                        .content(new ObjectMapper().writeValueAsString(cursosDTO));
 
-        MvcResult resultActions = this.mockMvc.perform(builder)
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.put("/cursos")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(new ObjectMapper().writeValueAsString(cursosDTO));
+
+        this.mockMvc.perform(builder)
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
     }
 
     @Test
     public void getCursoById_ReturnSameCurso_True() throws Exception {
         CursoDTO cursoDTO = cursoServices.getAllPaginated(1, 1).get(0);
-        
-        MockHttpServletRequestBuilder builder =
-                MockMvcRequestBuilders.get("/cursos/" + cursoDTO.getId())
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .characterEncoding("UTF-8");
-       
+
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/cursos/" + cursoDTO.getId())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8");
+
         MvcResult resultActions = this.mockMvc.perform(builder)
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
-        
+
         String response = resultActions.getResponse().getContentAsString();
         CursoDTO responseDto = new ObjectMapper().readValue(response, CursoDTO.class);
 
-        assertAll(()->{
+        assertAll(() -> {
             assertEquals(cursoDTO.getId(), responseDto.getId());
             assertEquals(cursoDTO.getNombre(), responseDto.getNombre());
             assertEquals(cursoDTO.getDescripcion(), responseDto.getDescripcion());
         });
     }
-    
+
     @Test
     public void updateCursoById_ReturnOkAndAssertNotEqualCursoSameId_True() throws Exception {
         CursoDTO cursoDTO = cursoServices.getAllPaginated(1, 1).get(0);
 
-        MockHttpServletRequestBuilder builder =
-                MockMvcRequestBuilders.put("/cursos/" + cursoDTO.getId())
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .characterEncoding("UTF-8")
-                        .content(new ObjectMapper().writeValueAsString(dtoToTest));
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.put("/cursos/" + cursoDTO.getId())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(new ObjectMapper().writeValueAsString(dtoToTest));
 
         MvcResult resultActions = this.mockMvc.perform(builder)
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
-        
+
         String response = resultActions.getResponse().getContentAsString();
         CursoDTO responseDto = new ObjectMapper().readValue(response, CursoDTO.class);
 
-        assertAll(()->{
+        assertAll(() -> {
             assertEquals(cursoDTO.getId(), responseDto.getId());
             assertNotEquals(cursoDTO.getNombre(), responseDto.getNombre());
             assertNotEquals(cursoDTO.getDescripcion(), responseDto.getDescripcion());
@@ -156,24 +152,23 @@ public class CursoIntegrationTest extends PostgresContainerTest{
     @Test
     public void deleteCursoById_ThrowsNotFoundAfterDelete_True() throws Exception {
         CursoDTO cursoDTO = cursoServices.getAllPaginated(1, 1).get(0);
-        
-        MockHttpServletRequestBuilder builder =
-                MockMvcRequestBuilders.delete("/cursos/" + cursoDTO.getId())
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .characterEncoding("UTF-8");
+
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.delete("/cursos/" + cursoDTO.getId())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8");
 
         this.mockMvc.perform(builder)
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
-        
-        assertThrows(NotFoundException.class,() -> cursoServices.getById(cursoDTO.getId()));
+
+        assertThrows(NotFoundException.class, () -> cursoServices.getById(cursoDTO.getId()));
     }
 
     private void assertCurso(MvcResult resultActions) throws UnsupportedEncodingException, JsonProcessingException {
         String response = resultActions.getResponse().getContentAsString();
 
         CursoDTO cursoDTO = new ObjectMapper().readValue(response, CursoDTO.class);
-        assertAll(()->{
+        assertAll(() -> {
             assertEquals(cursoDTO.getNombre(), dtoToTest.getNombre());
             assertEquals(cursoDTO.getDescripcion(), dtoToTest.getDescripcion());
         });
@@ -184,4 +179,3 @@ public class CursoIntegrationTest extends PostgresContainerTest{
         cursosDTO.add(dtoToTest);
     }
 }
-    

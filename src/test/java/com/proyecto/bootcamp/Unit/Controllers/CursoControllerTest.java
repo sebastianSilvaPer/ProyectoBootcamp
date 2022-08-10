@@ -98,30 +98,18 @@ public class CursoControllerTest {
     @Test
     public void putCurso_ReturnOkAndAssertCurso_True() throws Exception {
         when(cursoServices.update(any(CursoDTO.class))).thenReturn(dtoToTest);
+        doNothing().when(cursoServices).checkExistByNombre(anyString());
 
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.put("/cursos")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
-                        .content(new ObjectMapper().writeValueAsString(dtoToTest));
-        MvcResult resultActions = this.mockMvc.perform(builder)
-                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
-        assertCurso(resultActions);
-    }
-
-    @Test
-    public void deleteCursos_ReturnOk_True() throws Exception {
-        doNothing().when(cursoServices).deleteAll();
-        MockHttpServletRequestBuilder builder =
-                MockMvcRequestBuilders.delete("/cursos")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .characterEncoding("UTF-8");
-
+                        .content(new ObjectMapper().writeValueAsString(cursosDTO));
         this.mockMvc.perform(builder)
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
     }
+
 
     @Test
     public void getCursoById_ReturnOkAndAssertCurso_True() throws Exception {
