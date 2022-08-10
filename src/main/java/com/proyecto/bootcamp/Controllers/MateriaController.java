@@ -26,25 +26,26 @@ public class MateriaController {
     MateriaService materiaService;
 
     @PostMapping()
-    public MateriaDTO postMateria(@PathVariable("idCurso") UUID cursoId, 
-                                    @Validated(value = Create.class) @RequestBody MateriaDTO materiaDTO){
-       return materiaService.saveMateria(materiaDTO, cursoId);
+    public MateriaDTO postMateria(@PathVariable("idCurso") UUID cursoId,
+            @Validated(value = Create.class) @RequestBody MateriaDTO materiaDTO) {
+                
+        return materiaService.saveMateria(materiaDTO, cursoId);
     }
 
     @GetMapping()
-    public List<MateriaDTO> getMaterias(@PathVariable("idCurso") UUID cursoId){            
-        return materiaService.findAllByCursoId(cursoId);    
+    public List<MateriaDTO> getMaterias(@PathVariable("idCurso") UUID cursoId) {
+        return materiaService.findAllByCursoId(cursoId);
     }
 
     @PutMapping()
-    public List<MateriaDTO> putMateria(@PathVariable("idCurso") UUID cursoId, 
-                                        @Validated @RequestBody List<MateriaDTO> materiaDTO) {
+    public List<MateriaDTO> putMateria(@PathVariable("idCurso") UUID cursoId,
+            @Validated @RequestBody List<MateriaDTO> materiaDTO) {
         return materiaService.updateList(materiaDTO, cursoId);
     }
 
     @DeleteMapping()
-    public void delete(@PathVariable("idCurso") UUID cursoId){
-        materiaService.deleteAllCursoId(cursoId);
+    public void delete(@PathVariable("idCurso") UUID cursoId) {
+        materiaService.deleteAllByCursoId(cursoId);
     }
 
     @GetMapping("/{id}")
@@ -54,13 +55,13 @@ public class MateriaController {
 
     @PutMapping("/{id}")
     public MateriaDTO putMateriaById(@PathVariable("idCurso") UUID cursoId,
-                                    @PathVariable("id") UUID id,
-                                    @Validated @RequestBody MateriaDTO materiaDTO) {
+            @PathVariable("id") UUID id,
+            @Validated @RequestBody MateriaDTO materiaDTO) {
         return materiaService.updateMateria(materiaDTO, id, cursoId);
     }
-    
+
     @DeleteMapping("/{id}")
-    public void deleteOne(@PathVariable("id") UUID id){
+    public void deleteOne(@PathVariable("id") UUID id) {
         materiaService.deleteById(id);
     }
 }

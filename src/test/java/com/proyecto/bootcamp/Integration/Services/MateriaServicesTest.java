@@ -90,7 +90,7 @@ public class MateriaServicesTest extends PostgresContainerTest{
                     .toList();
 
         assertTrue(()->materiaServices.findAllByCursoId(cursoDTO.getId()).size() > 0);
-        materiaServices.deleteAllCursoId(cursoDTO.getId());
+        materiaServices.deleteAllByCursoId(cursoDTO.getId());
         assertTrue(()->materiaServices.findAllByCursoId(cursoDTO.getId()).size() == 0);
     }
 

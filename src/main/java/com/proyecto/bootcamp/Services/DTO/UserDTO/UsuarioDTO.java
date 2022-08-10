@@ -20,8 +20,7 @@ public class UsuarioDTO extends BasicDTO<UUID> {
     private String correo;
     @NotBlank(message = "usuario.NotBlank.clave")
     @Size(min = 6, max = 30, message = "usuario.clave.size")
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).$",
-                message = "{usuario.clave.pattern}")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$", message = "{usuario.clave.pattern}")
     private String clave;
     @NotBlank(message = "usuario.NotBlank.rol")
     private String rol;
@@ -107,7 +106,9 @@ public class UsuarioDTO extends BasicDTO<UUID> {
             return false;
         }
         UsuarioDTO usuarioDTO = (UsuarioDTO) o;
-        return Objects.equals(this.getId(), usuarioDTO.getId()) && Objects.equals(nombre, usuarioDTO.nombre) && Objects.equals(apellido, usuarioDTO.apellido) && Objects.equals(correo, usuarioDTO.correo) && Objects.equals(clave, usuarioDTO.clave) && Objects.equals(rol, usuarioDTO.rol);
+        return Objects.equals(this.getId(), usuarioDTO.getId()) && Objects.equals(nombre, usuarioDTO.nombre)
+                && Objects.equals(apellido, usuarioDTO.apellido) && Objects.equals(correo, usuarioDTO.correo)
+                && Objects.equals(clave, usuarioDTO.clave) && Objects.equals(rol, usuarioDTO.rol);
     }
 
     @Override
@@ -118,14 +119,12 @@ public class UsuarioDTO extends BasicDTO<UUID> {
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
-            ", nombre='" + getNombre() + "'" +
-            ", apellido='" + getApellido() + "'" +
-            ", correo='" + getCorreo() + "'" +
-            ", clave='" + getClave() + "'" +
-            ", rol='" + getRol() + "'" +
-            "}";
+                " id='" + getId() + "'" +
+                ", nombre='" + getNombre() + "'" +
+                ", apellido='" + getApellido() + "'" +
+                ", correo='" + getCorreo() + "'" +
+                ", clave='" + getClave() + "'" +
+                ", rol='" + getRol() + "'" +
+                "}";
     }
-
-
 }

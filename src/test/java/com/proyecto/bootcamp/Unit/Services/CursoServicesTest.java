@@ -139,7 +139,7 @@ class CursoServicesTest{
         when(cursoRepository.findById(any())).thenReturn(Optional.of(cursoToTest));
         
         cursoServices.deleteById(UUID.randomUUID());
-        verify(materiaService, times(1)).deleteAllCursoId(any());
+        verify(materiaService, times(1)).deleteAllByCursoId(any());
         verify(cursoRepository, times(1)).deleteById(any(UUID.class));
     }
 

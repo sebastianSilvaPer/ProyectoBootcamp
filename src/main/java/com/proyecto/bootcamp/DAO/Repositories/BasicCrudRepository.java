@@ -10,19 +10,18 @@ import org.springframework.transaction.annotation.Transactional;
 import com.proyecto.bootcamp.DAO.Models.BasicEntity;
 
 @NoRepositoryBean
-public interface BasicCrudRepository<T extends BasicEntity<ID>, ID extends Serializable> extends CrudRepository<T, ID>{
-    
+public interface BasicCrudRepository<T extends BasicEntity<ID>, ID extends Serializable> extends CrudRepository<T, ID> {
     @Transactional(readOnly = true)
-    public Iterable<T> findAllPaginated(@Param("limit") int limit, @Param("offset") int offset);
+    Iterable<T> findAllPaginated(@Param("limit") int limit, @Param("offset") int offset);
 
     @Transactional
-    default public T update(T entity){
+    default T update(T entity) {
         return this.save(entity);
     };
 
     @Override
     @Transactional
-    default void delete(T entity){
+    default void delete(T entity) {
         deleteById(entity.getId());
     };
 
@@ -32,9 +31,8 @@ public interface BasicCrudRepository<T extends BasicEntity<ID>, ID extends Seria
         ids.forEach(this::deleteById);
     }
 
-    @Override
     @Transactional
-	default void deleteAll(Iterable<? extends T> entities){
-        entities.forEach(this::delete);
+    default Iterable<T> updateAll(Iterable<T> entities) {
+        return saveAll(entities);
     };
 }

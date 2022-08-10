@@ -21,40 +21,45 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyecto.bootcamp.Security.Tokens.TokensUtils;
 
-public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter implements TokensUtils{
+public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter implements TokensUtils {
     private final AuthenticationManager authenticationManager;
 
     private final Algorithm algorithm;
 
     private final TextEncryptor userEncryptor;
-    
-    public CustomAuthenticationFilter(AuthenticationManager authenticationManager, Algorithm algorithm, TextEncryptor userEncryptor) {
+
+    public CustomAuthenticationFilter(AuthenticationManager authenticationManager, Algorithm algorithm,
+            TextEncryptor userEncryptor) {
         this.authenticationManager = authenticationManager;
         this.algorithm = algorithm;
         this.userEncryptor = userEncryptor;
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email,
+                password);
         return authenticationManager.authenticate(authenticationToken);
     }
 
-    
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+            Authentication authentication) throws IOException, ServletException {
         User user = (User) authentication.getPrincipal();
         String email = user.getUsername();
-        
-        String accessToken = createAccessTokenJWT(email, request.getRequestURI().toString(), user.getAuthorities(), algorithm, userEncryptor);
-        String refreshToken = createRefreshTokenJWT(email, request.getRequestURI().toString(), algorithm, userEncryptor);
-        
+
+        String accessToken = createAccessTokenJWT(email, request.getRequestURI().toString(), user.getAuthorities(),
+                algorithm, userEncryptor);
+        String refreshToken = createRefreshTokenJWT(email, request.getRequestURI().toString(), algorithm,
+                userEncryptor);
+
         Map<String, String> tokens = new HashMap<>();
         tokens.put("accessToken", accessToken);
         tokens.put("refreshToken", refreshToken);
-        
+
         response.setContentType(MediaType.APPLICATION_JSON.toString());
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }

@@ -13,19 +13,19 @@ import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 import com.proyecto.bootcamp.Services.DTO.BasicDTO;
 
-public class MateriaDTO extends BasicDTO<UUID>{
+public class MateriaDTO extends BasicDTO<UUID> {
     @NotBlank(message = "{materia.NotBlank.dia}")
     @Pattern(regexp = "[a-zA-Z]{5,9}$", message = "{materia.dia.pattern}")
     private String dia;
-    
+
     @Min(7)
     @Max(18)
     private Integer hora;
-    
+
     @NotNull(message = "{materia.NotNull.fechainicio}")
     @Future(message = "{materia.fechafin.future}")
     private Date fechafin;
-    
+
     @NotNull(message = "{materia.NotNull.fechafin}")
     @PastOrPresent(message = "{materia.fechainicio.pastorpresent}")
     private Date fechainicio;
@@ -73,7 +73,9 @@ public class MateriaDTO extends BasicDTO<UUID>{
             return false;
         }
         MateriaDTO materiaDTO = (MateriaDTO) o;
-        return Objects.equals(this.getId(), materiaDTO.getId()) && Objects.equals(dia, materiaDTO.dia) && Objects.equals(hora, materiaDTO.hora) && Objects.equals(fechafin, materiaDTO.fechafin) && Objects.equals(fechainicio, materiaDTO.fechainicio);
+        return Objects.equals(this.getId(), materiaDTO.getId()) && Objects.equals(dia, materiaDTO.dia)
+                && Objects.equals(hora, materiaDTO.hora) && Objects.equals(fechafin, materiaDTO.fechafin)
+                && Objects.equals(fechainicio, materiaDTO.fechainicio);
     }
 
     @Override
@@ -84,12 +86,11 @@ public class MateriaDTO extends BasicDTO<UUID>{
     @Override
     public String toString() {
         return "Materia{" +
-            " id='" + getId() + "'" +
-            ", dia='" + getDia() + "'" +
-            ", hora='" + getHora() + "'" +
-            ", fechafin='" + getFechafin() + "'" +
-            ", fechainicio='" + getFechainicio() + "'" +
-            "}\n";
-    } 
+                " id='" + getId() + "'" +
+                ", dia='" + getDia() + "'" +
+                ", hora='" + getHora() + "'" +
+                ", fechafin='" + getFechafin() + "'" +
+                ", fechainicio='" + getFechainicio() + "'" +
+                "}\n";
+    }
 }
- 
