@@ -28,11 +28,21 @@ services:
       depends_on:
         postgres:
           condition: service_healthy
+        mongo:
+          condition: service_healthy
       environment:
         - spring.datasource.url=jdbc:postgresql://postgres:5432/postgres?currentSchema=materias_db
         - spring.datasource.username=postgres
         - spring.datasource.password=1234
         - spring.jpa.properties.hibernate.default_schema=materias_db
+        - spring.security.salt.default=e5519d4de5ba347e
+        - spring.data.mongodb.uri=mongodb://root:1234@mongo:27017/cursos?authSource=admin&authMechanism=SCRAM-SHA-1
+        - spring.data.mongodb.database=cursos
+        - spring.data.mongodb.username=root
+        - spring.data.mongodb.password=1234
+        - spring.data.mongodb.host=localhost
+        - spring.data.mongodb.port=27017
+        - spring.data.mongodb.repositories.enabled=true
       ports:
         - 8080:8080
 
