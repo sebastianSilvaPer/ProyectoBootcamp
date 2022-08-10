@@ -1,5 +1,6 @@
 package com.proyecto.bootcamp.DAO.Repositories;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -38,6 +39,12 @@ public interface CursoRepository extends BasicCrudRepository<Curso, UUID> {
     @Transactional
     @Modifying
     void deleteAll();
+
+    @Transactional
+    @Modifying
+    default void deleteAllList(List<Curso> entities){
+        entities.forEach((curso)->this.deleteById(curso.getId()));
+    };
 
     @Override
     @Query("SELECT CASE WHEN count(c) > 0 THEN true ELSE false END FROM CURSO c where c.id = :id AND c.borrado='f'")

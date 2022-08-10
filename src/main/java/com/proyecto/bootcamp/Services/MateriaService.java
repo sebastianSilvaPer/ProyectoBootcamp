@@ -22,6 +22,13 @@ public class MateriaService {
     @Autowired
     MateriaMapper mapper;
 
+    public List<MateriaDTO> iterableToListDto(Iterable<Materia> iterable) {
+        return StreamSupport
+                .stream(iterable.spliterator(), false)
+                .map(mapper::materiaToDTO)
+                .toList();
+    }
+
     public MateriaDTO saveMateria(MateriaDTO materiaDTO, UUID cursoID) {
         Materia materiaModel = mapper.dtoToMateria(materiaDTO, cursoID);
         materiaRepository.save(materiaModel);
@@ -29,21 +36,13 @@ public class MateriaService {
     }
 
     public List<MateriaDTO> findAllByCursoId(UUID id) {
-        List<MateriaDTO> materias = StreamSupport
-                .stream(materiaRepository.findAllByCursoId(id).spliterator(), false)
-                .map(mapper::materiaToDTO)
-                .toList();
-        return materias;
+        Iterable<Materia> foundCursos = materiaRepository.findAllByCursoId(id);
+        return iterableToListDto(foundCursos);
     }
 
     public List<MateriaDTO> findAll(int page, int size) {
         Iterable<Materia> foundMaterias = materiaRepository.findAllPaginated(size, (page) * size);
-
-        List<MateriaDTO> materias = StreamSupport
-                .stream(foundMaterias.spliterator(), false)
-                .map(mapper::materiaToDTO)
-                .toList();
-        return materias;
+        return iterableToListDto(foundMaterias);
     }
 
     public List<MateriaDTO> updateList(List<MateriaDTO> listDTOs, UUID cursoId) {
@@ -60,7 +59,7 @@ public class MateriaService {
                     .map(mapper::materiaToDTO)
                     .toList();
         } else {
-            throw new NotFoundException("Can't update, one of the materias doesn't exist");    
+            throw new NotFoundException("Can't update, one of the materias doesn't exist");
         }
     }
 

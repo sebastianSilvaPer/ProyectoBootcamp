@@ -44,13 +44,13 @@ public class CursoController {
     }
 
     @PutMapping()
-    public CursoDTO putCurso(@Validated(value = Update.class) @RequestBody CursoDTO cursoDTO) {
-        return cursoServices.update(cursoDTO);
+    public List<CursoDTO> putCurso(@Validated(value = Update.class) @RequestBody List<CursoDTO> listCursos) {
+        return cursoServices.updateList(listCursos);
     }
 
     @DeleteMapping()
-    public void deleteAllCursos() {
-        cursoServices.deleteAll();
+    public void deleteAllCursos(@RequestBody List<CursoDTO> listCursos) {
+        cursoServices.deleteList(listCursos);
     }
 
     @GetMapping("/{id}")

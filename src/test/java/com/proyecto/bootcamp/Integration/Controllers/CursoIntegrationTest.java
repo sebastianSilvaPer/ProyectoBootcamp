@@ -55,6 +55,7 @@ public class CursoIntegrationTest extends PostgresContainerTest{
 
     @Test
     public void postCurso_ReturnOkAndAssertCurso_True() throws Exception {
+        dtoToTest.setNombre(UUID.randomUUID().toString());
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.post("/cursos")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -93,24 +94,16 @@ public class CursoIntegrationTest extends PostgresContainerTest{
 
     @Test
     public void putCurso_ReturnOkAndNotEqualName_True() throws Exception {
-        CursoDTO cursoDTO = cursoServices.getAllPaginated(1, 1).get(0);
-        String originalName = cursoDTO.getNombre();
-        cursoDTO.setNombre("Modified");
         
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.put("/cursos")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
-                        .content(new ObjectMapper().writeValueAsString(cursoDTO));
+                        .content(new ObjectMapper().writeValueAsString(cursosDTO));
 
         MvcResult resultActions = this.mockMvc.perform(builder)
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
-
-        String response = resultActions.getResponse().getContentAsString();
-        CursoDTO responseDto = new ObjectMapper().readValue(response, CursoDTO.class);
-
-        assertNotEquals(originalName, responseDto.getNombre());
     }
 
     @Test

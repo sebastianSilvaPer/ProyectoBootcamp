@@ -42,29 +42,22 @@ public class CursoServices {
         List<Curso> listEntity = mapper.mapListToEntity(listCursoDtos);
         Iterable<Curso> savedResult = cursoRepository.saveAll(listEntity);
 
-        List<Curso> cursos = StreamSupport
-                .stream(savedResult.spliterator(), false)
-                .toList();
-
-        return mapper.mapListToDto(cursos);
+        List<Curso> listDTOs = iterableToList(savedResult);
+        return mapper.mapListToDto(listDTOs);
     }
 
     public List<CursoDTO> getAll() {
         Iterable<Curso> foundCursos = cursoRepository.findAll();
 
-        List<Curso> cursos = StreamSupport
-                .stream(foundCursos.spliterator(), false)
-                .toList();
-        return mapper.mapListToDto(cursos);
+        List<Curso> listDTOs = iterableToList(foundCursos);
+        return mapper.mapListToDto(listDTOs);
     }
 
     public List<CursoDTO> getAllPaginated(int page, int size) {
         Iterable<Curso> foundCursos = cursoRepository.findAllPaginated(size, (page) * size);
 
-        List<Curso> cursos = StreamSupport
-                .stream(foundCursos.spliterator(), false)
-                .toList();
-        return mapper.mapListToDto(cursos);
+        List<Curso> listDTOs = iterableToList(foundCursos);
+        return mapper.mapListToDto(listDTOs);
     }
 
     public CursoDTO getById(UUID id) {
@@ -105,16 +98,44 @@ public class CursoServices {
         }
     }
 
+    public List<CursoDTO> updateList(List<CursoDTO> listCursoDtos) {
+        listCursoDtos.stream()
+                .forEach((cursoDTO) -> {
+                    checkExistById(cursoDTO.getId());
+                });
+
+        List<Curso> listEntity = mapper.mapListToEntity(listCursoDtos);
+        Iterable<Curso> savedResult = cursoRepository.updateAll(listEntity);
+
+        List<Curso> listDTOs = iterableToList(savedResult);
+        return mapper.mapListToDto(listDTOs);
+    }
+
+    public void deleteList(List<CursoDTO> listCursoDtos) {
+        listCursoDtos.stream()
+                .forEach((cursoDTO) -> {
+                    checkExistById(cursoDTO.getId());
+                });
+        List<Curso> listEntity = mapper.mapListToEntity(listCursoDtos);
+        cursoRepository.deleteAllList(listEntity);
+    }
+
     public long countAll() {
         return cursoRepository.count();
     }
 
-    public Boolean checkExistNyId(UUID id) {
+    public Boolean checkExistById(UUID id) {
         return cursoRepository.existsById(id);
     }
 
     public void checkExistByNombre(String nombre) {
         if (cursoRepository.existByNombre(nombre))
             throw new UniqueValueException("Curso already exists by name: " + nombre);
+    }
+
+    public List<Curso> iterableToList(Iterable<Curso> iterable) {
+        return StreamSupport
+                .stream(iterable.spliterator(), false)
+                .toList();
     }
 }

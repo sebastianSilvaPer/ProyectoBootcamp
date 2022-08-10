@@ -31,9 +31,8 @@ public interface BasicCrudRepository<T extends BasicEntity<ID>, ID extends Seria
         ids.forEach(this::deleteById);
     }
 
-    @Override
     @Transactional
-    default void deleteAll(Iterable<? extends T> entities) {
-        entities.forEach(this::delete);
+    default Iterable<T> updateAll(Iterable<T> entities) {
+        return saveAll(entities);
     };
 }
