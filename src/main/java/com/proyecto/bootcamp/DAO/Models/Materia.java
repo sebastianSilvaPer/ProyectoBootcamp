@@ -7,7 +7,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("materia")
-public class Materia extends BasicEntity<UUID>{
+public class Materia extends BasicEntity<UUID> {
     private String dia;
     private Integer hora;
     @Column(value = "fecha_fin")
@@ -16,7 +16,6 @@ public class Materia extends BasicEntity<UUID>{
     private Date fechainicio;
     @Column(value = "curso_id")
     private UUID curso;
-
 
     public UUID getCurso() {
         return this.curso;
@@ -66,16 +65,15 @@ public class Materia extends BasicEntity<UUID>{
         this.fechainicio = fechainicio;
     }
 
-
     @Override
     public String toString() {
         return "Materia{" +
-            " id='" + getId() + "'" +
-            ", dia='" + getDia() + "'" +
-            ", hora='" + getHora() + "'" +
-            ", fechafin='" + getFechafin() + "'" +
-            ", fechainicio='" + getFechainicio() + "'" +
-            ", curso='" + this.curso + "'" +
-            "}\n";
+                " id='" + getId() + "'" +
+                ", dia='" + getDia() + "'" +
+                ", hora='" + getHora() + "'" +
+                ", fechafin='" + getFechafin() + "'" +
+                ", fechainicio='" + getFechainicio() + "'" +
+                ", curso='" + this.curso + "'" +
+                "}\n";
     }
 }

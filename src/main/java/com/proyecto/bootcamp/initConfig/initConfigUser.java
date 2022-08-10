@@ -16,12 +16,14 @@ public class initConfigUser {
 	public void initUser() {
 		Usuario usuario = new Usuario();
 
-		usuario.setNombre("Juan");
-		usuario.setApellido("Perez");
-		usuario.setClave("$2a$12$IvJl4f11rHpbw.xkoCINhO0gsidOVVtF6ZRe5Z.4Pkto/ZTgDVUz2");
-		usuario.setCorreo("juan@gmail.com");
-		usuario.setRol("ROL_ADMIN");
-
-		usuarioRepository.save(usuario);
+		if(!usuarioRepository.findByCorreo("juan@gmail.com").isPresent()){
+			usuario.setNombre("Juan");
+			usuario.setApellido("Perez");
+			usuario.setClave("$2a$12$IvJl4f11rHpbw.xkoCINhO0gsidOVVtF6ZRe5Z.4Pkto/ZTgDVUz2");
+			usuario.setCorreo("juan@gmail.com");
+			usuario.setRol("ROL_ADMIN");
+	
+			usuarioRepository.save(usuario);
+		}
 	}
 }

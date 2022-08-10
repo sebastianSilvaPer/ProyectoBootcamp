@@ -8,12 +8,11 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("curso")
-public class Curso extends BasicEntity<UUID>{
+public class Curso extends BasicEntity<UUID> {
     private String nombre;
     private String descripcion;
     @Column("curso_id")
     private Set<Materia> materias = new HashSet<>();
-
 
     public Curso(UUID id, String nombre, String descripcion, Set<Materia> materias) {
         this.id = id;
@@ -22,10 +21,10 @@ public class Curso extends BasicEntity<UUID>{
         materias.forEach(this::addMateria);
     }
 
+    public Curso() {
+    }
 
-    public Curso() {}
-
-    public Curso(String nombre, String descripcion ) {
+    public Curso(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
@@ -69,10 +68,10 @@ public class Curso extends BasicEntity<UUID>{
     @Override
     public String toString() {
         return "Curso {" +
-            " id='" + getId() + "'" +
-            ", nombre='" + getNombre() + "'" +
-            ", descripcion='" + getDescripcion() + "'" +
-            "}\n";
+                " id='" + getId() + "'" +
+                ", nombre='" + getNombre() + "'" +
+                ", descripcion='" + getDescripcion() + "'" +
+                "}\n";
     }
 
-}   
+}

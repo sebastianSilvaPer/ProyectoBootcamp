@@ -18,8 +18,8 @@ public class BasicEntity<ID> {
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
-            "}";
+                " id='" + getId() + "'" +
+                "}";
     }
 
     public boolean isBorrado() {

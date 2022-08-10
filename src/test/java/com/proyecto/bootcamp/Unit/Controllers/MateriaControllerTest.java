@@ -110,7 +110,7 @@ class MateriaControllerTest{
 
     @Test
     public void deleteAllMaterias_ReturnOk_True() throws Exception {
-        doNothing().when(materiaService).deleteAllCursoId(cursoId);
+        doNothing().when(materiaService).deleteAllByCursoId(cursoId);
 
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.delete("/cursos/"+cursoId.toString()+"/materias")

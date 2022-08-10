@@ -9,7 +9,7 @@ import com.proyecto.bootcamp.Services.DTO.MateriaDTOs.MateriaDTO;
 
 @Mapper(componentModel = "spring")
 public interface MateriaMapper {
-    public MateriaDTO materiaToDTO(Materia materia);
-    public Materia dtoToMateria(MateriaDTO materiaDTO, UUID curso);
+    MateriaDTO materiaToDTO(Materia materia);
+    Materia dtoToMateria(MateriaDTO materiaDTO, UUID curso);
 }
 

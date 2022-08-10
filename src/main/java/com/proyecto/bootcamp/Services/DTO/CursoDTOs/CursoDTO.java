@@ -8,11 +8,10 @@ import javax.validation.constraints.NotNull;
 import com.proyecto.bootcamp.Services.DTO.BasicDTO;
 
 public class CursoDTO extends BasicDTO<UUID> {
-    @NotBlank(message = "{NotBlank.CursoDTO.nombre}")
+    @NotBlank(message = "{cursoDTO.NotBlank.nombre}")
     private String nombre;
-    @NotNull(message = "{NotNull.CursoDTO.descripcion}")
+    @NotNull(message = "{cursoDTO.NotNull.descripcion}")
     private String descripcion;
-
 
     public String getNombre() {
         return this.nombre;
@@ -41,7 +40,8 @@ public class CursoDTO extends BasicDTO<UUID> {
             return false;
         }
         CursoDTO cursoDTO = (CursoDTO) o;
-        return Objects.equals(this.getId(), cursoDTO.getId()) && Objects.equals(nombre, cursoDTO.nombre) && Objects.equals(descripcion, cursoDTO.descripcion);
+        return Objects.equals(this.getId(), cursoDTO.getId()) && Objects.equals(nombre, cursoDTO.nombre)
+                && Objects.equals(descripcion, cursoDTO.descripcion);
     }
 
     @Override
@@ -52,11 +52,9 @@ public class CursoDTO extends BasicDTO<UUID> {
     @Override
     public String toString() {
         return "Curso{" +
-            " id='" + getId() + "'" +
-            ", nombre='" + getNombre() + "'" +
-            ", descripcion='" + getDescripcion() + "'" +
-            // ", materias='" + getMaterias() + "'" +
-            "}\n";
+                " id='" + getId() + "'" +
+                ", nombre='" + getNombre() + "'" +
+                ", descripcion='" + getDescripcion() + "'" +
+                "}\n";
     }
-
 }

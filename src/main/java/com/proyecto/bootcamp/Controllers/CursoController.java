@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyecto.bootcamp.Controllers.Constants.MessageConstants;
+import com.proyecto.bootcamp.Controllers.Constants.UtilConstants;
 import com.proyecto.bootcamp.Exceptions.ValidationGroups.Create;
 import com.proyecto.bootcamp.Exceptions.ValidationGroups.Update;
 import com.proyecto.bootcamp.Services.CursoServices;
@@ -32,37 +32,38 @@ public class CursoController {
     CursoServices cursoServices;
 
     @PostMapping()
-    public CursoDTO postCurso(@Validated(value = Create.class) @RequestBody CursoDTO cursoDTO){
-       return cursoServices.saveCurso(cursoDTO);
+    public CursoDTO postCurso(@Validated(value = Create.class) @RequestBody CursoDTO cursoDTO) {
+        return cursoServices.saveCurso(cursoDTO);
     }
-    
+
     @GetMapping
-    public List<CursoDTO> getAll(@RequestParam(defaultValue = "0",required = false) @PositiveOrZero(message = MessageConstants.MESSAGE_PAGE_ZERO) Integer page,
-                                @RequestParam(defaultValue = "100",required = false) @Positive(message = MessageConstants.MESSAGE_SIZE_POSITIVE) Integer size) {
-        return cursoServices.getAllPaginated(page,size);
+    public List<CursoDTO> getAll(
+        @RequestParam(defaultValue = UtilConstants.DEFAULT_PAGE, required = false) @PositiveOrZero(message = UtilConstants.MESSAGE_PAGE_ZERO) Integer page,
+        @RequestParam(defaultValue = UtilConstants.DEFAULT_SIZE, required = false) @Positive(message = UtilConstants.MESSAGE_SIZE_POSITIVE) Integer size) {
+        return cursoServices.getAllPaginated(page, size);
     }
-    
+
     @PutMapping()
     public CursoDTO putCurso(@Validated(value = Update.class) @RequestBody CursoDTO cursoDTO) {
         return cursoServices.update(cursoDTO);
     }
-    
+
     @DeleteMapping()
-    public void deleteAllCursos(){
+    public void deleteAllCursos() {
         cursoServices.deleteAll();
     }
-    
+
     @GetMapping("/{id}")
     public CursoDTO getCursoById(@PathVariable UUID id) {
         return cursoServices.getById(id);
     }
-    
+
     @PutMapping("/{id}")
-    public CursoDTO updateCursoById(@PathVariable UUID id, @Validated @RequestBody CursoDTO cursoDTO){
+    public CursoDTO updateCursoById(@PathVariable UUID id, @Validated @RequestBody CursoDTO cursoDTO) {
         cursoDTO.setId(id);
         return cursoServices.update(cursoDTO);
     }
-    
+
     @DeleteMapping("/{id}")
     public void deleteCursoById(@PathVariable UUID id) {
         cursoServices.deleteById(id);

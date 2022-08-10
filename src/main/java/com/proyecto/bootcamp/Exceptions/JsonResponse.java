@@ -5,7 +5,6 @@ public class JsonResponse {
     private String message;
     private String descripction;
 
-
     public JsonResponse() {
     }
 
@@ -42,11 +41,9 @@ public class JsonResponse {
     @Override
     public String toString() {
         return "{" +
-            " code='" + getCode() + "'" +
-            ", message='" + getMessage() + "'" +
-            ", descripction='" + getDescripction() + "'" +
-            "}";
+                " code='" + getCode() + "'" +
+                ", message='" + getMessage() + "'" +
+                ", descripction='" + getDescripction() + "'" +
+                "}";
     }
-
 }
-

@@ -82,7 +82,7 @@ class MateriaServiceTest{
 
     @Test
     void deleteAllCursoIdShouldCallDeleteOnce(){
-        materiaService.deleteAllCursoId(UUID.randomUUID());
+        materiaService.deleteAllByCursoId(UUID.randomUUID());
         verify(materiaRepository, times(1)).deleteAllByCursoId(any(UUID.class));     
     }
 

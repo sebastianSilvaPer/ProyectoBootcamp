@@ -1,4 +1,4 @@
-package com.proyecto.bootcamp.Security.Errors;
+package com.proyecto.bootcamp.Security.Exceptions;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,23 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.stereotype.Component;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyecto.bootcamp.Exceptions.JsonResponse;
 
-@Component
-public class RestAccessDeniedHandler implements AccessDeniedHandler{
+public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response,
-            AccessDeniedException accessDeniedException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response,
+            AuthenticationException authException) throws IOException, ServletException {
         JsonResponse jsonResponse = new JsonResponse();
-        jsonResponse.setCode("Access_Denied");
-        jsonResponse.setMessage(accessDeniedException.getMessage());
-        jsonResponse.setDescripction("Access Denied");
+        jsonResponse.setCode("Authorization_Failed");
+        jsonResponse.setMessage("The authorization has failed");
+        jsonResponse.setDescripction(authException.getMessage());
 
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         PrintWriter out = response.getWriter();
